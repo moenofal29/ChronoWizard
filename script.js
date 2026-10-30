@@ -410,7 +410,7 @@ function addCalendarMonths(date, monthsToAdd) {
   return new Date(
     firstOfTargetMonth.getFullYear(),
     firstOfTargetMonth.getMonth(),
-    Math.min(date.getDate(), lastDay.getDate())
+    Math.min(date.getDate(), lastDay.)
   );
 }
 
