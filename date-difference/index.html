@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Date Difference Calculator | ChronoWizard</title>
+  <meta name="description" content="Calculate the time between two dates with ChronoWizard. Discover the days, weeks, months, and years between any two dates.">
+
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="ChronoWizard home">
+      <img
+        src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
+        alt="ChronoWizard logo"
+        class="brand-icon"
+      >
+      <span class="brand-name">ChronoWizard</span>
+    </a>
+    <span class="brand-tag">THE MAGIC OF TIME</span>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../calculator/index.html">Day Calculator</a>
+    <a href="./index.html" aria-current="page">Date Difference</a>
+    <a href="../age-calculator/index.html">Age Calculator</a>
+    <a href="../calendar/index.html">Calendar Explorer</a>
+    <a href="../challenge/index.html">Date Challenge</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="eyebrow">MEASURE YOUR MOMENTS</p>
+    <h1>Time Between <span>Dates.</span></h1>
+    <p class="subtitle">
+      Curious how much time has passed between two dates?
+      Let ChronoWizard do the math.
+    </p>
+  </section>
+
+  <main>
+
+    <!-- DATE DIFFERENCE CALCULATOR -->
+    <section class="calculator">
+
+      <h2>⏳ Date Difference Calculator</h2>
+      <p>Select two dates to discover the time between them.</p>
+
+      <label for="start-date">Starting date</label>
+      <input type="date" id="start-date">
+
+      <label for="end-date">Ending date</label>
+      <input type="date" id="end-date">
+
+      <button id="calculate-difference" type="button">
+        ✨ Calculate Time Difference ✨
+      </button>
+
+      <div id="difference-result" aria-live="polite">
+        Your results will appear here.
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <a class="footer-brand" href="../index.html">
+      ✦ ChronoWizard
+    </a>
+
+    <p>
+      Every date has a story. Every day has a place in time.
+    </p>
+
+    <p class="creator-credit">
+      Created by <strong>Mohammad Nofal</strong> 🧙‍♂️
+    </p>
+
+    <a class="back-to-top" href="#">↑ Back to the top</a>
+  </footer>
+
+  <!-- THEME PICKER -->
+  <div class="theme-picker">
+
+    <button
+      id="theme-toggle"
+      class="theme-toggle"
+      type="button"
+      aria-label="Choose website colors"
+      aria-expanded="false"
+      aria-controls="theme-menu"
+    >
+      🎨
+    </button>
+
+    <div id="theme-menu" class="theme-menu" hidden>
+
+      <h3>Choose your vibe</h3>
+
+      <button class="theme-option active" type="button" data-theme="purple">
+        <span class="swatch purple"></span>
+        Purple Dream
+      </button>
+
+      <button class="theme-option" type="button" data-theme="ocean">
+        <span class="swatch ocean"></span>
+        Ocean Blue
+      </button>
+
+      <button class="theme-option" type="button" data-theme="forest">
+        <span class="swatch forest"></span>
+        Forest Green
+      </button>
+
+      <button class="theme-option" type="button" data-theme="sunset">
+        <span class="swatch sunset"></span>
+        Sunset Orange
+      </button>
+
+      <button class="theme-option" type="button" data-theme="rose">
+        <span class="swatch rose"></span>
+        Rose Pink
+      </button>
+
+      <button class="theme-option" type="button" data-theme="red">
+        <span class="swatch red"></span>
+        Cherry Red
+      </button>
+
+      <button class="theme-option" type="button" data-theme="gold">
+        <span class="swatch gold"></span>
+        Golden Hour
+      </button>
+
+      <button class="theme-option" type="button" data-theme="ice">
+        <span class="swatch ice"></span>
+        Ice Blue
+      </button>
+
+      <button class="theme-option" type="button" data-theme="midnight">
+        <span class="swatch midnight"></span>
+        Midnight Black
+      </button>
+
+      <button class="theme-option" type="button" data-theme="white">
+        <span class="swatch white"></span>
+        Glacier White
+      </button>
+
+      <button class="theme-option" type="button" data-theme="lavender">
+        <span class="swatch lavender"></span>
+        Soft Lavender
+      </button>
+
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+
+</body>
+</html>
