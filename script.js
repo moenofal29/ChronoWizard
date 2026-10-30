@@ -395,6 +395,7 @@ function daysBetweenDates(firstDate, secondDate) {
 
 function addCalendarMonths(date, monthsToAdd) {
   const targetMonth = date.getMonth() + monthsToAdd;
+
   const firstOfTargetMonth = new Date(
     date.getFullYear(),
     targetMonth,
@@ -410,9 +411,10 @@ function addCalendarMonths(date, monthsToAdd) {
   return new Date(
     firstOfTargetMonth.getFullYear(),
     firstOfTargetMonth.getMonth(),
-    Math.min(date.getDate(), lastDay.)
+    Math.min(date.getDate(), lastDay)
   );
 }
+
 
 function getCalendarDifference(startDate, endDate) {
   let years = endDate.getFullYear() - startDate.getFullYear();
