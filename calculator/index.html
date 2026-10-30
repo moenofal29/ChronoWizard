@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChronoWizard — Discover the Day of Any Date</title>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Discover the weekday of any date, explore past and future occurrences, and uncover calendar patterns with ChronoWizard.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ChronoWizard 🧙‍♂️ | The Magic of Time">
+  <meta property="og:description" content="Every date has a story! Discover weekdays, explore the past and future, and travel through time.">
+  <meta property="og:url" content="https://chronowizard.com/">
+  <meta property="og:image" content="https://i.ibb.co/9mCcN4Ks/Chrono-Wizard-The-Magic-of-Time.png">
+  <meta property="og:image:alt" content="ChronoWizard — The Magic of Time">
+  <meta property="og:image:type" content="image/png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChronoWizard 🧙‍♂️ | The Magic of Time">
+  <meta name="twitter:description" content="Every date has a story. Discover yours with ChronoWizard!">
+  <meta name="twitter:image" content="https://i.ibb.co/9mCcN4Ks/Chrono-Wizard-The-Magic-of-Time.png">
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a class="brand" href="/" aria-label="ChronoWizard home">
+    <img
+      src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
+      alt="ChronoWizard logo"
+      class="brand-icon"
+    />
+    <span class="brand-name">ChronoWizard</span>
+  </a>
+  <span class="brand-tag">THE MAGIC OF TIME</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow">YOUR PERSONAL TIME EXPLORER</p>
+  <h1>Every date has a <span>story.</span></h1>
+  <p class="subtitle">
+    Discover the weekday. Explore the past.
+    Find your date's place in time.
+  </p>
+</section>
+
+<!-- QUICK NAVIGATION -->
+<nav class="quick-nav" aria-label="Quick navigation">
+  <a href="#calculator-section">📅 Calculator</a>
+  <a href="#weekly-section">↔️ Weekly dates</a>
+  <a href="#year-match-section">🔮 Year match</a>
+  <a href="#age-calculator-section">🎂 Age Calculator</a>
+</nav>
+
+<!-- DATE CALCULATOR -->
+<section class="calculator" id="calculator-section">
+  <label for="date">Choose any date</label>
+  <input type="date" id="date">
+
+  <button id="calculate" type="button">
+    ✨ Reveal the day ✨
+  </button>
+
+  <div id="result" aria-live="polite">
+    Your answer will appear here.
+  </div>
+</section>
+
+<!-- AGE CALCULATOR -->
+<section class="calculator age-calculator" id="age-calculator-section">
+  <h2>🎂 Age Calculator</h2>
+  <p>Discover how long you've been alive!</p>
+
+  <label for="birthday">Enter your birthday</label>
+  <input type="date" id="birthday">
+
+  <button id="calculate-age" type="button">
+    ✨ Calculate My Age ✨
+  </button>
+
+  <div id="age-result" aria-live="polite">
+    Your age results will appear here.
+  </div>
+</section>
+
+<!-- SHARE RESULT -->
+<button id="share-result" type="button" disabled>
+  📤 Share Your Result
+</button>
+
+<!-- PREVIOUS AND NEXT WEEKLY OCCURRENCES -->
+<section class="occurrence-card" id="weekly-section">
+  <h2>🔮 Find That Weekday Again</h2>
+  <p>
+    Discover the previous and next time that weekday occurred.
+  </p>
+
+  <div class="occurrence-results">
+    <div class="occurrence-item">
+      <span>⬅️ Previous</span>
+      <strong id="previous-date">—</strong>
+      <small id="previous-gap"></small>
+    </div>
+
+    <div class="occurrence-item">
+      <span>➡️ Next</span>
+      <strong id="next-date">—</strong>
+      <small id="next-gap"></small>
+    </div>
+  </div>
+</section>
+
+<!-- SAME DATE, SAME WEEKDAY IN A FUTURE YEAR -->
+<section class="year-match-card" id="year-match-section">
+  <h2>✨ Same Date, Same Weekday</h2>
+  <p>
+    When will this exact date fall on the same weekday again?
+  </p>
+
+  <div class="year-match-result">
+    <div class="year-match-item">
+      <span>⬅️ Last time</span>
+      <strong id="year-match-previous">Choose a date first 📅</strong>
+      <small id="year-match-previous-years"></small>
+    </div>
+
+    <span class="arrow">📅</span>
+
+    <div class="year-match-item">
+      <span>Your selected date</span>
+      <strong id="year-match-original">Your selected date</strong>
+    </div>
+
+    <span class="arrow">📅</span>
+
+    <div class="year-match-item">
+      <span>➡️ Next time</span>
+      <strong id="year-match-next">Choose a date first 📅</strong>
+      <small id="year-match-years"></small>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a class="footer-brand" href="/">
+    ✦ ChronoWizard
+  </a>
+
+  <p>
+    Every date has a story. Every day has a place in time.
+  </p>
+
+  <p class="creator-credit">
+    Created by <strong>Mohammad Nofal</strong> 🧙‍♂️
+  </p>
+
+  <a class="back-to-top" href="#">↑ Back to the top</a>
+</footer>
+
+<!-- THEME PICKER -->
+<div class="theme-picker">
+  <button
+    id="theme-toggle"
+    class="theme-toggle"
+    type="button"
+    aria-label="Choose website colors"
+    aria-expanded="false"
+    aria-controls="theme-menu"
+  >
+    🎨
+  </button>
+
+  <div id="theme-menu" class="theme-menu" hidden>
+    <h3>Choose your vibe</h3>
+
+    <button class="theme-option active" type="button" data-theme="purple">
+      <span class="swatch purple"></span>
+      Purple Dream
+    </button>
+
+    <button class="theme-option" type="button" data-theme="ocean">
+      <span class="swatch ocean"></span>
+      Ocean Blue
+    </button>
+
+    <button class="theme-option" type="button" data-theme="forest">
+      <span class="swatch forest"></span>
+      Forest Green
+    </button>
+
+    <button class="theme-option" type="button" data-theme="sunset">
+      <span class="swatch sunset"></span>
+      Sunset Orange
+    </button>
+
+    <button class="theme-option" type="button" data-theme="rose">
+      <span class="swatch rose"></span>
+      Rose Pink
+    </button>
+
+    <button class="theme-option" type="button" data-theme="red">
+      <span class="swatch red"></span>
+      Cherry Red
+    </button>
+
+    <button class="theme-option" type="button" data-theme="gold">
+      <span class="swatch gold"></span>
+      Golden Hour
+    </button>
+
+    <button class="theme-option" type="button" data-theme="ice">
+      <span class="swatch ice"></span>
+      Ice Blue
+    </button>
+
+    <button class="theme-option" type="button" data-theme="midnight">
+      <span class="swatch midnight"></span>
+      Midnight Black
+    </button>
+
+    <button class="theme-option" type="button" data-theme="white">
+      <span class="swatch white"></span>
+      Glacier White
+    </button>
+
+    <button class="theme-option" type="button" data-theme="lavender">
+      <span class="swatch lavender"></span>
+      Soft Lavender
+    </button>
+  </div>
+</div>
+
+<script src="../script.js"></script>
+
+</body>
+</html>
