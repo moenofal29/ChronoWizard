@@ -1276,3 +1276,454 @@ input[type="date"]:focus {
     padding-bottom: 55px;
   }
 }
+
+
+/* =========================================
+   CHRONOWIZARD — GLOBAL DESIGN FIX
+   Overrides conflicting older CSS rules
+========================================= */
+
+/* Global layout */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: block !important;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background atmosphere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 50%
+    );
+}
+
+/* Header */
+.site-header {
+  position: relative;
+  width: 100%;
+  padding: 18px 24px;
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+/* Logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: -0.6px;
+}
+
+.logo img {
+  display: block;
+  width: 48px !important;
+  height: 48px !important;
+  max-width: 48px !important;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: auto;
+  margin: 0;
+}
+
+.main-nav a {
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 650;
+  transition: 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--accent);
+  background: var(--card);
+}
+
+/* Main page containers */
+.page-container,
+.app {
+  width: min(100% - 40px, 1050px);
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 55px 0 100px;
+  text-align: left;
+}
+
+/* Hero section */
+.hero,
+.home-hero {
+  max-width: 850px;
+  margin: 0 auto 45px;
+  padding: 25px 10px;
+  text-align: center;
+}
+
+.hero h1,
+.home-hero h1 {
+  margin: 12px auto;
+  color: var(--text);
+  font-size: clamp(36px, 6vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.hero .subtitle,
+.home-hero .subtitle {
+  max-width: 700px;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* Eyebrow text */
+.eyebrow {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Calculator cards */
+.calculator-card,
+.calculator,
+.occurrence-card,
+.year-match-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 25px auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--panel);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Card headings */
+.calculator-card h2,
+.calculator h2 {
+  color: var(--text);
+}
+
+/* Form labels */
+label {
+  display: block;
+  margin: 16px 0 9px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* Date input color scheme */
+input[type="date"] {
+  color-scheme: normal;
+}
+
+body:not([data-theme="white"]) input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.calculator-card button,
+.calculator button,
+#calculate,
+#calculate-age,
+#calculate-difference {
+  min-height: 50px;
+  border: none;
+  border-radius: 13px;
+  background: var(--accent);
+  color: var(--page);
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.calculator-card button:hover,
+.calculator button:hover,
+#calculate:hover,
+#calculate-age:hover,
+#calculate-difference:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+}
+
+/* Results */
+#result,
+#age-result,
+#difference-result {
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--result);
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* Homepage cards */
+.tools-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tool-card {
+  min-height: 220px;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.tool-card h3 {
+  color: var(--text);
+}
+
+.tool-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.tool-icon {
+  font-size: 30px;
+}
+
+/* Footer */
+.site-footer {
+  width: 100%;
+  margin-top: 50px;
+  padding: 30px 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.site-footer p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Floating theme picker */
+.theme-picker {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+}
+
+.theme-toggle {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  margin: 0;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--page);
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.theme-menu {
+  position: absolute;
+  right: 0;
+  bottom: 70px;
+  width: 230px;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.theme-menu[hidden] {
+  display: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 850px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-nav {
+    justify-content: center;
+  }
+
+  .tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 16px 14px;
+  }
+
+  .header-container {
+    gap: 14px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .logo img {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .main-nav {
+    gap: 5px;
+  }
+
+  .main-nav a {
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  .page-container,
+  .app {
+    width: calc(100% - 28px);
+    padding-top: 35px;
+  }
+
+  .hero h1,
+  .home-hero h1 {
+    font-size: clamp(32px, 9vw, 44px);
+    letter-spacing: -1.2px;
+  }
+
+  .calculator-card,
+  .calculator {
+    padding: 20px;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-picker {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
