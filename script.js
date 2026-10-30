@@ -1,6 +1,6 @@
-// ==========================================
-// CHRONOWIZARD — SHARED SITE SCRIPT
-// ==========================================
+/* ==========================================
+   CHRONOWIZARD — SHARED SITE SCRIPT
+   ========================================== */
 
 // WEBSITE SETTINGS
 const websiteLink = "https://chronowizard.com/calculator/";
@@ -13,7 +13,61 @@ const weekdays = [
 const millisecondsPerDay = 86400000;
 
 // ==========================================
-// CALENDAR CALCULATIONS
+// SHARED DATE UTILITIES
+// ==========================================
+
+function parseLocalDate(value) {
+  if (!value) return null;
+
+  const parts = value.split("-").map(Number);
+
+  if (parts.length !== 3 || parts.some(Number.isNaN)) {
+    return null;
+  }
+
+  const [year, month, day] = parts;
+
+  const date = new Date(year, month - 1, day);
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+
+  return date;
+}
+
+function daysBetweenDates(firstDate, secondDate) {
+  const firstUTC = Date.UTC(
+    firstDate.getFullYear(),
+    firstDate.getMonth(),
+    firstDate.getDate()
+  );
+
+  const secondUTC = Date.UTC(
+    secondDate.getFullYear(),
+    secondDate.getMonth(),
+    secondDate.getDate()
+  );
+
+  return Math.round(
+    (secondUTC - firstUTC) / millisecondsPerDay
+  );
+}
+
+function formatDate(date) {
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
+// ==========================================
+// JULIAN AND GREGORIAN CALENDAR
 // ==========================================
 
 function getJulianDayNumber(year, month, day, julian) {
@@ -46,6 +100,15 @@ function usesJulianCalendar(year, month, day) {
     year < 1582 ||
     (year === 1582 &&
       (month < 10 || (month === 10 && day <= 4)))
+  );
+}
+
+function isSkippedHistoricalDate(year, month, day) {
+  return (
+    year === 1582 &&
+    month === 10 &&
+    day >= 5 &&
+    day <= 14
   );
 }
 
@@ -101,15 +164,6 @@ function formatHistoricalDate(jdnValue) {
   return `${monthName} ${parts.day}, ${parts.year}`;
 }
 
-function isSkippedHistoricalDate(year, month, day) {
-  return (
-    year === 1582 &&
-    month === 10 &&
-    day >= 5 &&
-    day <= 14
-  );
-}
-
 // ==========================================
 // DAY CALCULATOR
 // ==========================================
@@ -125,12 +179,12 @@ if (dateInput && calculateButton && result) {
   calculateButton.addEventListener("click", function () {
     if (!dateInput.value) {
       result.textContent = "Choose a date first! 📅";
+      shareText = "";
 
       if (shareButton) {
         shareButton.disabled = true;
       }
 
-      shareText = "";
       return;
     }
 
@@ -151,15 +205,17 @@ if (dateInput && calculateButton && result) {
         <p>Choose another date to continue.</p>
       `;
 
+      shareText = "";
+
       if (shareButton) {
         shareButton.disabled = true;
       }
 
-      shareText = "";
       return;
     }
 
-    const useJulian = usesJulianCalendar(year, month, day);
+    const useJulian =
+      usesJulianCalendar(year, month, day);
 
     const jdn = getJulianDayNumber(
       year, month, day, useJulian
@@ -212,11 +268,11 @@ if (dateInput && calculateButton && result) {
         pastYear >= year - 28;
         pastYear--
       ) {
-        const isLeapYear =
+        const leap =
           pastYear % 4 === 0 &&
           (pastYear % 100 !== 0 || pastYear % 400 === 0);
 
-        if (month === 2 && day === 29 && !isLeapYear) {
+        if (month === 2 && day === 29 && !leap) {
           continue;
         }
 
@@ -251,11 +307,11 @@ if (dateInput && calculateButton && result) {
         futureYear <= year + 28;
         futureYear++
       ) {
-        const isLeapYear =
+        const leap =
           futureYear % 4 === 0 &&
           (futureYear % 100 !== 0 || futureYear % 400 === 0);
 
-        if (month === 2 && day === 29 && !isLeapYear) {
+        if (month === 2 && day === 29 && !leap) {
           continue;
         }
 
@@ -285,17 +341,26 @@ if (dateInput && calculateButton && result) {
     }
 
     // PREVIOUS AND NEXT WEEKLY OCCURRENCES
-    const previousDate = document.getElementById("previous-date");
-    const nextDate = document.getElementById("next-date");
-    const previousGap = document.getElementById("previous-gap");
-    const nextGap = document.getElementById("next-gap");
+    const previousDate =
+      document.getElementById("previous-date");
+
+    const nextDate =
+      document.getElementById("next-date");
+
+    const previousGap =
+      document.getElementById("previous-gap");
+
+    const nextGap =
+      document.getElementById("next-gap");
 
     if (previousDate) {
-      previousDate.textContent = formatHistoricalDate(jdn - 7);
+      previousDate.textContent =
+        formatHistoricalDate(jdn - 7);
     }
 
     if (nextDate) {
-      nextDate.textContent = formatHistoricalDate(jdn + 7);
+      nextDate.textContent =
+        formatHistoricalDate(jdn + 7);
     }
 
     if (previousGap) {
@@ -306,7 +371,7 @@ if (dateInput && calculateButton && result) {
       nextGap.textContent = "7 days later";
     }
 
-    // HISTORICAL CALENDAR NOTE
+    // HISTORICAL NOTE
     let historicalNote = "";
 
     if (useJulian) {
@@ -345,8 +410,11 @@ if (dateInput && calculateButton && result) {
 // DATE DIFFERENCE CALCULATOR
 // ==========================================
 
-const startDateInput = document.getElementById("start-date");
-const endDateInput = document.getElementById("end-date");
+const startDateInput =
+  document.getElementById("start-date");
+
+const endDateInput =
+  document.getElementById("end-date");
 
 const calculateDifferenceButton =
   document.getElementById("calculate-difference");
@@ -354,45 +422,7 @@ const calculateDifferenceButton =
 const differenceResult =
   document.getElementById("difference-result");
 
-function parseLocalDate(value) {
-  if (!value) return null;
-
-  const parts = value.split("-").map(Number);
-
-  if (parts.length !== 3 || parts.some(Number.isNaN)) {
-    return null;
-  }
-
-  const [year, month, day] = parts;
-  const date = new Date(year, month - 1, day);
-
-  if (
-    date.getFullYear() !== year ||
-    date.getMonth() !== month - 1 ||
-    date.getDate() !== day
-  ) {
-    return null;
-  }
-
-  return date;
-}
-
-function daysBetweenDates(firstDate, secondDate) {
-  const firstUTC = Date.UTC(
-    firstDate.getFullYear(),
-    firstDate.getMonth(),
-    firstDate.getDate()
-  );
-
-  const secondUTC = Date.UTC(
-    secondDate.getFullYear(),
-    secondDate.getMonth(),
-    secondDate.getDate()
-  );
-
-  return Math.round((secondUTC - firstUTC) / millisecondsPerDay);
-}
-
+// Safely add months while preserving the day where possible.
 function addCalendarMonths(date, monthsToAdd) {
   const targetMonth = date.getMonth() + monthsToAdd;
 
@@ -415,9 +445,10 @@ function addCalendarMonths(date, monthsToAdd) {
   );
 }
 
-
 function getCalendarDifference(startDate, endDate) {
-  let years = endDate.getFullYear() - startDate.getFullYear();
+  let years =
+    endDate.getFullYear() - startDate.getFullYear();
+
   let cursor = addCalendarMonths(startDate, years * 12);
 
   if (cursor > endDate) {
@@ -430,7 +461,9 @@ function getCalendarDifference(startDate, endDate) {
   while (months < 11) {
     const nextMonth = addCalendarMonths(cursor, 1);
 
-    if (nextMonth > endDate) break;
+    if (nextMonth > endDate) {
+      break;
+    }
 
     cursor = nextMonth;
     months++;
@@ -448,8 +481,11 @@ if (
   differenceResult
 ) {
   calculateDifferenceButton.addEventListener("click", function () {
-    const startDate = parseLocalDate(startDateInput.value);
-    const endDate = parseLocalDate(endDateInput.value);
+    const startDate =
+      parseLocalDate(startDateInput.value);
+
+    const endDate =
+      parseLocalDate(endDateInput.value);
 
     if (!startDate || !endDate) {
       differenceResult.textContent =
@@ -463,20 +499,25 @@ if (
       return;
     }
 
-    const totalDays = daysBetweenDates(startDate, endDate);
-    const totalWeeks = Math.floor(totalDays / 7);
-    const remainingDays = totalDays % 7;
+    const totalDays =
+      daysBetweenDates(startDate, endDate);
 
-    const calendarDifference =
+    const totalWeeks =
+      Math.floor(totalDays / 7);
+
+    const remainingDays =
+      totalDays % 7;
+
+    const difference =
       getCalendarDifference(startDate, endDate);
 
     differenceResult.innerHTML = `
       <h3>✨ Time Between Your Dates</h3>
 
       <p style="font-size:26px;font-weight:800;margin:16px 0">
-        ${calendarDifference.years} years,
-        ${calendarDifference.months} months,
-        ${calendarDifference.days} days
+        ${difference.years} years,
+        ${difference.months} months,
+        ${difference.days} days
       </p>
 
       <p>📅 Total days:
@@ -492,131 +533,6 @@ if (
         your selected dates!
       </p>
     `;
-  });
-}
-
-// ==========================================
-// THEME PICKER — ALL PAGES
-// ==========================================
-
-const themeToggle = document.getElementById("theme-toggle");
-const themeMenu = document.getElementById("theme-menu");
-
-const themeOptions =
-  document.querySelectorAll(".theme-option");
-
-const validThemes = [
-  "purple",
-  "ocean",
-  "forest",
-  "sunset",
-  "rose",
-  "red",
-  "gold",
-  "ice",
-  "midnight",
-  "white",
-  "lavender"
-];
-
-let savedTheme = "purple";
-
-try {
-  const storedTheme =
-    localStorage.getItem("calendar-wizard-theme");
-
-  if (validThemes.includes(storedTheme)) {
-    savedTheme = storedTheme;
-  }
-} catch (error) {
-  // The site still works if storage is unavailable.
-}
-
-function applyTheme(theme) {
-  if (!validThemes.includes(theme)) {
-    theme = "purple";
-  }
-
-  document.body.dataset.theme = theme;
-
-  themeOptions.forEach(option => {
-    const isActive = option.dataset.theme === theme;
-
-    option.classList.toggle("active", isActive);
-    option.setAttribute("aria-pressed", String(isActive));
-  });
-
-  try {
-    localStorage.setItem("calendar-wizard-theme", theme);
-  } catch (error) {
-    // Theme still applies to the current page.
-  }
-}
-
-applyTheme(savedTheme);
-
-if (themeToggle && themeMenu) {
-  themeToggle.addEventListener("click", () => {
-    const isOpening = themeMenu.hidden;
-
-    themeMenu.hidden = !isOpening;
-
-    themeToggle.setAttribute(
-      "aria-expanded",
-      String(isOpening)
-    );
-  });
-
-  themeOptions.forEach(option => {
-    option.addEventListener("click", () => {
-      applyTheme(option.dataset.theme);
-
-      themeMenu.hidden = true;
-      themeToggle.setAttribute("aria-expanded", "false");
-    });
-  });
-
-  document.addEventListener("click", event => {
-    if (!event.target.closest(".theme-picker")) {
-      themeMenu.hidden = true;
-      themeToggle.setAttribute("aria-expanded", "false");
-    }
-  });
-}
-
-// ==========================================
-// SHARE BUTTON
-// ==========================================
-
-async function copyShareText() {
-  if (!shareText || !shareButton) return;
-
-  try {
-    await navigator.clipboard.writeText(shareText);
-    shareButton.textContent = "✅ Copied! Ready to share";
-  } catch (error) {
-    window.prompt("Copy your result:", shareText);
-  }
-}
-
-if (shareButton) {
-  shareButton.addEventListener("click", async () => {
-    if (!shareText) return;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "My ChronoWizard Result",
-          text: shareText
-        });
-      } catch (error) {
-        if (error.name !== "AbortError") {
-          await copyShareText();
-        }
-      }
-    } else {
-      await copyShareText();
-    }
   });
 }
 
@@ -645,14 +561,22 @@ function calculateAgeDetails(birthDate, today = new Date()) {
   }
 
   if (birth > current) {
-    return { error: "Your birthday must not be in the future!" };
+    return {
+      error: "Your birthday must not be in the future!"
+    };
   }
 
-  const totalDays = daysBetweenDates(birth, current);
+  const totalDays =
+    daysBetweenDates(birth, current);
 
-  let years = current.getFullYear() - birth.getFullYear();
-  let months = current.getMonth() - birth.getMonth();
-  let days = current.getDate() - birth.getDate();
+  let years =
+    current.getFullYear() - birth.getFullYear();
+
+  let months =
+    current.getMonth() - birth.getMonth();
+
+  let days =
+    current.getDate() - birth.getDate();
 
   if (days < 0) {
     months--;
@@ -671,6 +595,7 @@ function calculateAgeDetails(birthDate, today = new Date()) {
     months += 12;
   }
 
+  // Handle February 29 birthdays.
   function makeBirthday(year) {
     if (
       birth.getMonth() === 1 &&
@@ -687,10 +612,12 @@ function calculateAgeDetails(birthDate, today = new Date()) {
     );
   }
 
-  let nextBirthday = makeBirthday(current.getFullYear());
+  let nextBirthday =
+    makeBirthday(current.getFullYear());
 
   if (nextBirthday < current) {
-    nextBirthday = makeBirthday(current.getFullYear() + 1);
+    nextBirthday =
+      makeBirthday(current.getFullYear() + 1);
   }
 
   const daysUntilBirthday =
@@ -706,29 +633,32 @@ function calculateAgeDetails(birthDate, today = new Date()) {
   };
 }
 
-const birthdayInput = document.getElementById("birthday");
+const birthdayInput =
+  document.getElementById("birthday");
+
 const calculateAgeButton =
   document.getElementById("calculate-age");
 
-const ageResult = document.getElementById("age-result");
+const ageResult =
+  document.getElementById("age-result");
 
-if (birthdayInput && calculateAgeButton && ageResult) {
+if (
+  birthdayInput &&
+  calculateAgeButton &&
+  ageResult
+) {
   calculateAgeButton.addEventListener("click", function () {
-    if (!birthdayInput.value) {
-      ageResult.textContent =
-        "Please enter your birthday first! 🎂";
-      return;
-    }
-
-    const birthDate = parseLocalDate(birthdayInput.value);
+    const birthDate =
+      parseLocalDate(birthdayInput.value);
 
     if (!birthDate) {
       ageResult.textContent =
-        "Sorry, we couldn't calculate that date.";
+        "Please enter a valid birthday! 🎂";
       return;
     }
 
-    const age = calculateAgeDetails(birthDate);
+    const age =
+      calculateAgeDetails(birthDate);
 
     if (!age) {
       ageResult.textContent =
@@ -764,3 +694,159 @@ if (birthdayInput && calculateAgeButton && ageResult) {
     `;
   });
 }
+
+// ==========================================
+// THEME PICKER — ALL PAGES
+// ==========================================
+
+const themeToggle =
+  document.getElementById("theme-toggle");
+
+const themeMenu =
+  document.getElementById("theme-menu");
+
+const themeOptions =
+  document.querySelectorAll(".theme-option");
+
+const validThemes = [
+  "purple",
+  "ocean",
+  "forest",
+  "sunset",
+  "rose",
+  "red",
+  "gold",
+  "ice",
+  "midnight",
+  "white",
+  "lavender"
+];
+
+let savedTheme = "purple";
+
+try {
+  const storedTheme =
+    localStorage.getItem("calendar-wizard-theme");
+
+  if (validThemes.includes(storedTheme)) {
+    savedTheme = storedTheme;
+  }
+} catch (error) {
+  // Storage may be unavailable.
+}
+
+function applyTheme(theme) {
+  if (!validThemes.includes(theme)) {
+    theme = "purple";
+  }
+
+  document.body.dataset.theme = theme;
+
+  themeOptions.forEach(option => {
+    const isActive =
+      option.dataset.theme === theme;
+
+    option.classList.toggle("active", isActive);
+
+    option.setAttribute(
+      "aria-pressed",
+      String(isActive)
+    );
+  });
+
+  try {
+    localStorage.setItem(
+      "calendar-wizard-theme",
+      theme
+    );
+  } catch (error) {
+    // Theme still applies to the current page.
+  }
+}
+
+applyTheme(savedTheme);
+
+if (themeToggle && themeMenu) {
+  themeToggle.addEventListener("click", function () {
+    const isOpening = themeMenu.hidden;
+
+    themeMenu.hidden = !isOpening;
+
+    themeToggle.setAttribute(
+      "aria-expanded",
+      String(isOpening)
+    );
+  });
+
+  themeOptions.forEach(option => {
+    option.addEventListener("click", function () {
+      applyTheme(option.dataset.theme);
+
+      themeMenu.hidden = true;
+
+      themeToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    });
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".theme-picker")) {
+      themeMenu.hidden = true;
+
+      themeToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+  });
+}
+
+// ==========================================
+// SHARE BUTTON
+// ==========================================
+
+async function copyShareText() {
+  if (!shareText || !shareButton) {
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(shareText);
+
+    shareButton.textContent =
+      "✅ Copied! Ready to share";
+  } catch (error) {
+    window.prompt(
+      "Copy your result:",
+      shareText
+    );
+  }
+}
+
+if (shareButton) {
+  shareButton.addEventListener("click", async function () {
+    if (!shareText) return;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "My ChronoWizard Result",
+          text: shareText
+        });
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          await copyShareText();
+        }
+      }
+    } else {
+      await copyShareText();
+    }
+  });
+}
+
+// ==========================================
+// END OF CHRONOWIZARD SCRIPT
+// ==========================================
+
