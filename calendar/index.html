@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore dates, weekdays, and months with ChronoWizard Calendar Explorer.">
+  <title>Calendar Explorer | ChronoWizard</title>
+  <link rel="icon" href="../favicon.png">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <a href="../index.html" class="logo">
+      <img
+        src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
+        alt="ChronoWizard Logo"
+      >
+      <span>ChronoWizard</span>
+    </a>
+
+    <nav class="main-nav">
+      <a href="../index.html">Home</a>
+      <a href="../calculator/index.html">Day Calculator</a>
+      <a href="../date-difference/index.html">Date Difference</a>
+      <a href="../age-calculator/index.html">Age Calculator</a>
+      <a href="./index.html" class="active">Calendar Explorer</a>
+      <a href="../challenge/index.html">Date Challenge</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page-container">
+
+  <section class="hero">
+    <p class="eyebrow">EXPLORE THE MAGIC OF TIME</p>
+    <h1>Calendar <span>Explorer</span></h1>
+    <p class="subtitle">
+      Discover dates, explore months, and uncover the day behind every date.
+    </p>
+  </section>
+
+  <section class="calculator-card calendar-explorer">
+
+    <div class="calendar-heading">
+      <div>
+        <p class="eyebrow">YOUR CALENDAR</p>
+        <h2 id="calendar-month-year">October 2026</h2>
+      </div>
+
+      <div class="calendar-navigation">
+        <button id="previous-month" aria-label="Previous month">←</button>
+        <button id="next-month" aria-label="Next month">→</button>
+      </div>
+    </div>
+
+    <div class="calendar-controls">
+      <label for="month-picker">Jump to month</label>
+      <input type="month" id="month-picker">
+      <button id="today-button">Today</button>
+    </div>
+
+    <div class="calendar-grid" id="calendar-grid">
+      <div class="weekday">Sun</div>
+      <div class="weekday">Mon</div>
+      <div class="weekday">Tue</div>
+      <div class="weekday">Wed</div>
+      <div class="weekday">Thu</div>
+      <div class="weekday">Fri</div>
+      <div class="weekday">Sat</div>
+    </div>
+
+    <div class="selected-date-panel" id="selected-date-panel">
+      <p class="eyebrow">SELECT A DATE</p>
+      <h3 id="selected-date-title">Your date awaits...</h3>
+      <p id="selected-date-description">
+        Choose any day on the calendar to explore it.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <a href="../index.html" class="footer-brand">ChronoWizard</a>
+  <p>Every date has a story. Discover yours.</p>
+  <p>© 2026 ChronoWizard</p>
+</footer>
+
+<!-- Theme picker -->
+<div class="theme-picker">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Choose theme">
+    🎨
+  </button>
+
+  <div class="theme-menu" id="theme-menu" hidden>
+    <h3>Choose Your Theme</h3>
+
+    <button class="theme-option" data-theme="purple"><span class="swatch purple"></span>Purple</button>
+    <button class="theme-option" data-theme="ocean"><span class="swatch ocean"></span>Ocean</button>
+    <button class="theme-option" data-theme="forest"><span class="swatch forest"></span>Forest</button>
+    <button class="theme-option" data-theme="sunset"><span class="swatch sunset"></span>Sunset</button>
+    <button class="theme-option" data-theme="rose"><span class="swatch rose"></span>Rose</button>
+    <button class="theme-option" data-theme="red"><span class="swatch red"></span>Red</button>
+    <button class="theme-option" data-theme="gold"><span class="swatch gold"></span>Gold</button>
+    <button class="theme-option" data-theme="ice"><span class="swatch ice"></span>Ice</button>
+    <button class="theme-option" data-theme="midnight"><span class="swatch midnight"></span>Midnight</button>
+    <button class="theme-option" data-theme="white"><span class="swatch white"></span>White</button>
+    <button class="theme-option" data-theme="lavender"><span class="swatch lavender"></span>Lavender</button>
+  </div>
+</div>
+
+<script src="../script.js"></script>
+
+<script>
+(() => {
+  const grid = document.getElementById("calendar-grid");
+  const heading = document.getElementById("calendar-month-year");
+  const monthPicker = document.getElementById("month-picker");
+
+  const selectedTitle = document.getElementById("selected-date-title");
+  const selectedDescription = document.getElementById("selected-date-description");
+
+  const today = new Date();
+  let displayedYear = today.getFullYear();
+  let displayedMonth = today.getMonth();
+
+  const weekdays = [
+    "Sunday", "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Saturday"
+  ];
+
+  function formatMonth(year, month) {
+    return new Date(year, month, 1).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric"
+    });
+  }
+
+  function selectDate(year, month, day) {
+    const date = new Date(year, month, day);
+
+    selectedTitle.textContent = date.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
+
+    selectedDescription.textContent =
+      `This date falls on a ${weekdays[date.getDay()]}.`;
+  }
+
+  function renderCalendar() {
+    heading.textContent = formatMonth(displayedYear, displayedMonth);
+
+    monthPicker.value =
+      `${displayedYear}-${String(displayedMonth + 1).padStart(2, "0")}`;
+
+    grid.innerHTML = `
+      <div class="weekday">Sun</div>
+      <div class="weekday">Mon</div>
+      <div class="weekday">Tue</div>
+      <div class="weekday">Wed</div>
+      <div class="weekday">Thu</div>
+      <div class="weekday">Fri</div>
+      <div class="weekday">Sat</div>
+    `;
+
+    const firstDay = new Date(displayedYear, displayedMonth, 1).getDay();
+    const daysInMonth = new Date(
+      displayedYear, displayedMonth + 1, 0
+    ).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement("div");
+      empty.className = "calendar-empty";
+      grid.appendChild(empty);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const button = document.createElement("button");
+      button.className = "calendar-day";
+      button.textContent = day;
+
+      const isToday =
+        day === today.getDate() &&
+        displayedMonth === today.getMonth() &&
+        displayedYear === today.getFullYear();
+
+      if (isToday) button.classList.add("today");
+
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".calendar-day.selected")
+          .forEach(item => item.classList.remove("selected"));
+
+        button.classList.add("selected");
+        selectDate(displayedYear, displayedMonth, day);
+      });
+
+      grid.appendChild(button);
+    }
+  }
+
+  document.getElementById("previous-month").addEventListener("click", () => {
+    displayedMonth--;
+
+    if (displayedMonth < 0) {
+      displayedMonth = 11;
+      displayedYear--;
+    }
+
+    renderCalendar();
+  });
+
+  document.getElementById("next-month").addEventListener("click", () => {
+    displayedMonth++;
+
+    if (displayedMonth > 11) {
+      displayedMonth = 0;
+      displayedYear++;
+    }
+
+    renderCalendar();
+  });
+
+  document.getElementById("today-button").addEventListener("click", () => {
+    displayedYear = today.getFullYear();
+    displayedMonth = today.getMonth();
+    renderCalendar();
+    selectDate(today.getFullYear(), today.getMonth(), today.getDate());
+  });
+
+  monthPicker.addEventListener("change", () => {
+    if (!monthPicker.value) return;
+
+    const [year, month] = monthPicker.value.split("-").map(Number);
+    displayedYear = year;
+    displayedMonth = month - 1;
+    renderCalendar();
+  });
+
+  renderCalendar();
+  selectDate(today.getFullYear(), today.getMonth(), today.getDate());
+})();
+</script>
+
+</body>
+</html>
