@@ -1,25 +1,21 @@
-// ========================================
+
+// ==========================================
 // CHRONOWIZARD — SHARED SITE SCRIPT
-// Works on both the homepage and calculator page.
-// ========================================
+// ==========================================
 
-const dateInput = document.getElementById("date");
-const calculateButton = document.getElementById("calculate");
-const result = document.getElementById("result");
-const shareButton = document.getElementById("share-result");
-
-let shareText = "";
-
-const websiteLink = "https://chronowizard.com/";
+// WEBSITE SETTINGS
+const websiteLink = "https://chronowizard.com/calculator/";
 
 const weekdays = [
   "Monday", "Tuesday", "Wednesday", "Thursday",
   "Friday", "Saturday", "Sunday"
 ];
 
-// ========================================
+const millisecondsPerDay = 86400000;
+
+// ==========================================
 // CALENDAR CALCULATIONS
-// ========================================
+// ==========================================
 
 function getJulianDayNumber(year, month, day, julian) {
   const a = Math.floor((14 - month) / 12);
@@ -35,7 +31,8 @@ function getJulianDayNumber(year, month, day, julian) {
   if (julian) {
     jdn -= 32083;
   } else {
-    jdn -= Math.floor(y / 100) - Math.floor(y / 400) + 32045;
+    jdn -= Math.floor(y / 100) -
+      Math.floor(y / 400) + 32045;
   }
 
   return jdn;
@@ -45,21 +42,33 @@ function getWeekday(jdn) {
   return weekdays[((jdn % 7) + 7) % 7];
 }
 
+function usesJulianCalendar(year, month, day) {
+  return (
+    year < 1582 ||
+    (year === 1582 &&
+      (month < 10 || (month === 10 && day <= 4)))
+  );
+}
+
 function jdnToGregorian(jdnValue) {
   let l = jdnValue + 68569;
   const n = Math.floor((4 * l) / 146097);
+
   l -= Math.floor((146097 * n + 3) / 4);
 
   const i = Math.floor((4000 * (l + 1)) / 1461001);
+
   l = l - Math.floor((1461 * i) / 4) + 31;
 
   const j = Math.floor((80 * l) / 2447);
-  const d = l - Math.floor((2447 * j) / 80);
-  l = Math.floor(j / 11);
-  const m = j + 2 - 12 * l;
-  const y = 100 * (n - 49) + i + l;
+  const day = l - Math.floor((2447 * j) / 80);
 
-  return { year: y, month: m, day: d };
+  l = Math.floor(j / 11);
+
+  const month = j + 2 - 12 * l;
+  const year = 100 * (n - 49) + i + l;
+
+  return { year, month, day };
 }
 
 function jdnToJulian(jdnValue) {
@@ -76,30 +85,45 @@ function jdnToJulian(jdnValue) {
 }
 
 function formatHistoricalDate(jdnValue) {
-  const gregorianStart = getJulianDayNumber(1582, 10, 15, false);
+  const gregorianStart =
+    getJulianDayNumber(1582, 10, 15, false);
 
   const parts = jdnValue < gregorianStart
     ? jdnToJulian(jdnValue)
     : jdnToGregorian(jdnValue);
 
-  const monthName = new Date(Date.UTC(2000, parts.month - 1, 1))
-    .toLocaleString("en-US", {
-      month: "short",
-      timeZone: "UTC"
-    });
+  const monthName = new Date(
+    Date.UTC(2000, parts.month - 1, 1)
+  ).toLocaleString("en-US", {
+    month: "short",
+    timeZone: "UTC"
+  });
 
   return `${monthName} ${parts.day}, ${parts.year}`;
 }
 
-// ========================================
+function isSkippedHistoricalDate(year, month, day) {
+  return (
+    year === 1582 &&
+    month === 10 &&
+    day >= 5 &&
+    day <= 14
+  );
+}
+
+// ==========================================
 // DAY CALCULATOR
-// Only runs when calculator elements exist.
-// ========================================
+// ==========================================
+
+const dateInput = document.getElementById("date");
+const calculateButton = document.getElementById("calculate");
+const result = document.getElementById("result");
+const shareButton = document.getElementById("share-result");
+
+let shareText = "";
 
 if (dateInput && calculateButton && result) {
-
   calculateButton.addEventListener("click", function () {
-
     if (!dateInput.value) {
       result.textContent = "Choose a date first! 📅";
 
@@ -115,48 +139,16 @@ if (dateInput && calculateButton && result) {
       .split("-")
       .map(Number);
 
-    // Validate the selected date.
-
-    const selectedDate = new Date(
-      Date.UTC(year, month - 1, day)
-    );
-
-    if (
-      selectedDate.getUTCFullYear() !== year ||
-      selectedDate.getUTCMonth() !== month - 1 ||
-      selectedDate.getUTCDate() !== day
-    ) {
-      result.textContent = "Please choose a valid date.";
-
-      if (shareButton) {
-        shareButton.disabled = true;
-      }
-
-      shareText = "";
-      return;
-    }
-
-    // Check the skipped Gregorian transition dates.
-
-    const skippedDates =
-      year === 1582 &&
-      month === 10 &&
-      day >= 5 &&
-      day <= 14;
-
-    if (skippedDates) {
-
+    if (isSkippedHistoricalDate(year, month, day)) {
       result.innerHTML = `
         <div style="font-size:24px;font-weight:800">
           📜 That date was skipped!
         </div>
-
         <p>
           In regions that first adopted the Gregorian
           calendar, October 4, 1582 was followed by
           October 15, 1582.
         </p>
-
         <p>Choose another date to continue.</p>
       `;
 
@@ -168,25 +160,15 @@ if (dateInput && calculateButton && result) {
       return;
     }
 
-    // Determine which calendar to use.
-
-    const useJulian =
-      year < 1582 ||
-      (year === 1582 &&
-        (month < 10 ||
-          (month === 10 && day <= 4)));
+    const useJulian = usesJulianCalendar(year, month, day);
 
     const jdn = getJulianDayNumber(
-      year,
-      month,
-      day,
-      useJulian
+      year, month, day, useJulian
     );
 
     const weekday = getWeekday(jdn);
 
     // SHARE RESULT
-
     shareText =
       `🧙‍♂️ ChronoWizard discovered my date!\n` +
       `📅 ${month}/${day}/${year} was a ${weekday}!\n\n` +
@@ -198,10 +180,7 @@ if (dateInput && calculateButton && result) {
       shareButton.textContent = "📤 Share Your Result";
     }
 
-    // ========================================
-    // SAME DATE, SAME WEEKDAY IN ANOTHER YEAR
-    // ========================================
-
+    // SAME WEEKDAY IN OTHER YEARS
     const originalLabel =
       document.getElementById("year-match-original");
 
@@ -217,14 +196,15 @@ if (dateInput && calculateButton && result) {
     const yearsLabel =
       document.getElementById("year-match-years");
 
-    if (originalLabel) {
+    if (
+      originalLabel &&
+      previousLabel &&
+      previousYearsLabel &&
+      nextLabel &&
+      yearsLabel
+    ) {
       originalLabel.textContent =
         `${month}/${day}/${year} → ${weekday}`;
-    }
-
-    // Find previous matching year.
-
-    if (previousLabel && previousYearsLabel) {
 
       let previousMatchFound = false;
 
@@ -233,17 +213,11 @@ if (dateInput && calculateButton && result) {
         pastYear >= year - 28;
         pastYear--
       ) {
-
         const isLeapYear =
           pastYear % 4 === 0 &&
-          (pastYear % 100 !== 0 ||
-            pastYear % 400 === 0);
+          (pastYear % 100 !== 0 || pastYear % 400 === 0);
 
-        if (
-          month === 2 &&
-          day === 29 &&
-          !isLeapYear
-        ) {
+        if (month === 2 && day === 29 && !isLeapYear) {
           continue;
         }
 
@@ -251,11 +225,10 @@ if (dateInput && calculateButton && result) {
           pastYear,
           month,
           day,
-          useJulian
+          usesJulianCalendar(pastYear, month, day)
         );
 
         if (getWeekday(pastJdn) === weekday) {
-
           previousLabel.textContent =
             `${month}/${day}/${pastYear} → ${weekday}`;
 
@@ -271,11 +244,6 @@ if (dateInput && calculateButton && result) {
         previousLabel.textContent = "No match found";
         previousYearsLabel.textContent = "";
       }
-    }
-
-    // Find next matching year.
-
-    if (nextLabel && yearsLabel) {
 
       let nextMatchFound = false;
 
@@ -284,17 +252,11 @@ if (dateInput && calculateButton && result) {
         futureYear <= year + 28;
         futureYear++
       ) {
-
         const isLeapYear =
           futureYear % 4 === 0 &&
-          (futureYear % 100 !== 0 ||
-            futureYear % 400 === 0);
+          (futureYear % 100 !== 0 || futureYear % 400 === 0);
 
-        if (
-          month === 2 &&
-          day === 29 &&
-          !isLeapYear
-        ) {
+        if (month === 2 && day === 29 && !isLeapYear) {
           continue;
         }
 
@@ -302,11 +264,10 @@ if (dateInput && calculateButton && result) {
           futureYear,
           month,
           day,
-          useJulian
+          usesJulianCalendar(futureYear, month, day)
         );
 
         if (getWeekday(futureJdn) === weekday) {
-
           nextLabel.textContent =
             `${month}/${day}/${futureYear} → ${weekday}`;
 
@@ -324,30 +285,18 @@ if (dateInput && calculateButton && result) {
       }
     }
 
-    // ========================================
     // PREVIOUS AND NEXT WEEKLY OCCURRENCES
-    // ========================================
-
-    const previousDate =
-      document.getElementById("previous-date");
-
-    const nextDate =
-      document.getElementById("next-date");
-
-    const previousGap =
-      document.getElementById("previous-gap");
-
-    const nextGap =
-      document.getElementById("next-gap");
+    const previousDate = document.getElementById("previous-date");
+    const nextDate = document.getElementById("next-date");
+    const previousGap = document.getElementById("previous-gap");
+    const nextGap = document.getElementById("next-gap");
 
     if (previousDate) {
-      previousDate.textContent =
-        formatHistoricalDate(jdn - 7);
+      previousDate.textContent = formatHistoricalDate(jdn - 7);
     }
 
     if (nextDate) {
-      nextDate.textContent =
-        formatHistoricalDate(jdn + 7);
+      nextDate.textContent = formatHistoricalDate(jdn + 7);
     }
 
     if (previousGap) {
@@ -358,14 +307,10 @@ if (dateInput && calculateButton && result) {
       nextGap.textContent = "7 days later";
     }
 
-    // ========================================
     // HISTORICAL CALENDAR NOTE
-    // ========================================
-
     let historicalNote = "";
 
     if (useJulian) {
-
       historicalNote = `
         <div style="
           margin-top:16px;
@@ -376,51 +321,185 @@ if (dateInput && calculateButton && result) {
           font-size:13px;
           line-height:1.6;
         ">
-
           📜 Historical calendar note<br><br>
-
           This weekday uses the Julian calendar.
           The Gregorian calendar was introduced in 1582,
           but different countries adopted it at different times.
-
           The historical weekday depends on the calendar
           used in that location.
-
         </div>
       `;
     }
 
     result.innerHTML = `
-      <div style="font-size:14px">
-        YOUR ANSWER IS...
-      </div>
-
-      <div style="
-        font-size:32px;
-        font-weight:800;
-        margin:10px 0
-      ">
+      <div style="font-size:14px">YOUR ANSWER IS...</div>
+      <div style="font-size:32px;font-weight:800;margin:10px 0">
         ${weekday}!
       </div>
-
       <div>${month}/${day}/${year}</div>
-
       ${historicalNote}
     `;
-
   });
 }
 
-// ========================================
-// THEME PICKER
-// Works independently on any page.
-// ========================================
+// ==========================================
+// DATE DIFFERENCE CALCULATOR
+// ==========================================
 
-const themeToggle =
-  document.getElementById("theme-toggle");
+const startDateInput = document.getElementById("start-date");
+const endDateInput = document.getElementById("end-date");
 
-const themeMenu =
-  document.getElementById("theme-menu");
+const calculateDifferenceButton =
+  document.getElementById("calculate-difference");
+
+const differenceResult =
+  document.getElementById("difference-result");
+
+function parseLocalDate(value) {
+  if (!value) return null;
+
+  const parts = value.split("-").map(Number);
+
+  if (parts.length !== 3 || parts.some(Number.isNaN)) {
+    return null;
+  }
+
+  const [year, month, day] = parts;
+  const date = new Date(year, month - 1, day);
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+
+  return date;
+}
+
+function daysBetweenDates(firstDate, secondDate) {
+  const firstUTC = Date.UTC(
+    firstDate.getFullYear(),
+    firstDate.getMonth(),
+    firstDate.getDate()
+  );
+
+  const secondUTC = Date.UTC(
+    secondDate.getFullYear(),
+    secondDate.getMonth(),
+    secondDate.getDate()
+  );
+
+  return Math.round((secondUTC - firstUTC) / millisecondsPerDay);
+}
+
+function addCalendarMonths(date, monthsToAdd) {
+  const targetMonth = date.getMonth() + monthsToAdd;
+  const firstOfTargetMonth = new Date(
+    date.getFullYear(),
+    targetMonth,
+    1
+  );
+
+  const lastDay = new Date(
+    firstOfTargetMonth.getFullYear(),
+    firstOfTargetMonth.getMonth() + 1,
+    0
+  ).getDate();
+
+  return new Date(
+    firstOfTargetMonth.getFullYear(),
+    firstOfTargetMonth.getMonth(),
+    Math.min(date.getDate(), lastDay.getDate())
+  );
+}
+
+function getCalendarDifference(startDate, endDate) {
+  let years = endDate.getFullYear() - startDate.getFullYear();
+  let cursor = addCalendarMonths(startDate, years * 12);
+
+  if (cursor > endDate) {
+    years--;
+    cursor = addCalendarMonths(startDate, years * 12);
+  }
+
+  let months = 0;
+
+  while (months < 11) {
+    const nextMonth = addCalendarMonths(cursor, 1);
+
+    if (nextMonth > endDate) break;
+
+    cursor = nextMonth;
+    months++;
+  }
+
+  const days = daysBetweenDates(cursor, endDate);
+
+  return { years, months, days };
+}
+
+if (
+  startDateInput &&
+  endDateInput &&
+  calculateDifferenceButton &&
+  differenceResult
+) {
+  calculateDifferenceButton.addEventListener("click", function () {
+    const startDate = parseLocalDate(startDateInput.value);
+    const endDate = parseLocalDate(endDateInput.value);
+
+    if (!startDate || !endDate) {
+      differenceResult.textContent =
+        "Please choose both dates first! 📅";
+      return;
+    }
+
+    if (startDate > endDate) {
+      differenceResult.textContent =
+        "The end date must be after the start date.";
+      return;
+    }
+
+    const totalDays = daysBetweenDates(startDate, endDate);
+    const totalWeeks = Math.floor(totalDays / 7);
+    const remainingDays = totalDays % 7;
+
+    const calendarDifference =
+      getCalendarDifference(startDate, endDate);
+
+    differenceResult.innerHTML = `
+      <h3>✨ Time Between Your Dates</h3>
+
+      <p style="font-size:26px;font-weight:800;margin:16px 0">
+        ${calendarDifference.years} years,
+        ${calendarDifference.months} months,
+        ${calendarDifference.days} days
+      </p>
+
+      <p>📅 Total days:
+        <strong>${totalDays.toLocaleString()}</strong>
+      </p>
+
+      <p>📆 Total weeks:
+        <strong>${totalWeeks.toLocaleString()}</strong>
+        weeks and ${remainingDays} days
+      </p>
+
+      <p>🔮 That's ${totalDays.toLocaleString()} days between
+        your selected dates!
+      </p>
+    `;
+  });
+}
+
+// ==========================================
+// THEME PICKER — ALL PAGES
+// ==========================================
+
+const themeToggle = document.getElementById("theme-toggle");
+const themeMenu = document.getElementById("theme-menu");
 
 const themeOptions =
   document.querySelectorAll(".theme-option");
@@ -442,20 +521,17 @@ const validThemes = [
 let savedTheme = "purple";
 
 try {
-
   const storedTheme =
     localStorage.getItem("calendar-wizard-theme");
 
   if (validThemes.includes(storedTheme)) {
     savedTheme = storedTheme;
   }
-
 } catch (error) {
-  // Website still works if storage is unavailable.
+  // The site still works if storage is unavailable.
 }
 
 function applyTheme(theme) {
-
   if (!validThemes.includes(theme)) {
     theme = "purple";
   }
@@ -463,37 +539,23 @@ function applyTheme(theme) {
   document.body.dataset.theme = theme;
 
   themeOptions.forEach(option => {
-
-    const isActive =
-      option.dataset.theme === theme;
+    const isActive = option.dataset.theme === theme;
 
     option.classList.toggle("active", isActive);
-
-    option.setAttribute(
-      "aria-pressed",
-      String(isActive)
-    );
-
+    option.setAttribute("aria-pressed", String(isActive));
   });
 
   try {
-
-    localStorage.setItem(
-      "calendar-wizard-theme",
-      theme
-    );
-
+    localStorage.setItem("calendar-wizard-theme", theme);
   } catch (error) {
     // Theme still applies to the current page.
   }
 }
 
+applyTheme(savedTheme);
+
 if (themeToggle && themeMenu) {
-
-  applyTheme(savedTheme);
-
   themeToggle.addEventListener("click", () => {
-
     const isOpening = themeMenu.hidden;
 
     themeMenu.hidden = !isOpening;
@@ -502,111 +564,66 @@ if (themeToggle && themeMenu) {
       "aria-expanded",
       String(isOpening)
     );
-
   });
 
   themeOptions.forEach(option => {
-
     option.addEventListener("click", () => {
-
       applyTheme(option.dataset.theme);
 
       themeMenu.hidden = true;
-
-      themeToggle.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
+      themeToggle.setAttribute("aria-expanded", "false");
     });
-
   });
 
   document.addEventListener("click", event => {
-
     if (!event.target.closest(".theme-picker")) {
-
       themeMenu.hidden = true;
-
-      themeToggle.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
+      themeToggle.setAttribute("aria-expanded", "false");
     }
-
   });
-
 }
 
-// ========================================
+// ==========================================
 // SHARE BUTTON
-// Only runs when the button exists.
-// ========================================
+// ==========================================
 
 async function copyShareText() {
+  if (!shareText || !shareButton) return;
 
   try {
-
     await navigator.clipboard.writeText(shareText);
-
-    if (shareButton) {
-      shareButton.textContent =
-        "✅ Copied! Ready to share";
-    }
-
+    shareButton.textContent = "✅ Copied! Ready to share";
   } catch (error) {
-
-    window.prompt(
-      "Copy your result:",
-      shareText
-    );
-
+    window.prompt("Copy your result:", shareText);
   }
 }
 
 if (shareButton) {
-
   shareButton.addEventListener("click", async () => {
-
     if (!shareText) return;
 
     if (navigator.share) {
-
       try {
-
         await navigator.share({
           title: "My ChronoWizard Result",
           text: shareText
         });
-
       } catch (error) {
-
         if (error.name !== "AbortError") {
           await copyShareText();
         }
-
       }
-
     } else {
-
       await copyShareText();
-
     }
-
   });
-
 }
 
-// ========================================
+// ==========================================
 // AGE CALCULATOR
-// ========================================
+// ==========================================
 
-function calculateAgeDetails(
-  birthDate,
-  today = new Date()
-) {
-
+function calculateAgeDetails(birthDate, today = new Date()) {
   const birth = new Date(
     birthDate.getFullYear(),
     birthDate.getMonth(),
@@ -627,29 +644,16 @@ function calculateAgeDetails(
   }
 
   if (birth > current) {
-    return {
-      error: "Your birthday must not be in the future!"
-    };
+    return { error: "Your birthday must not be in the future!" };
   }
 
-  const millisecondsPerDay =
-    24 * 60 * 60 * 1000;
+  const totalDays = daysBetweenDates(birth, current);
 
-  const totalDays = Math.round(
-    (current - birth) / millisecondsPerDay
-  );
-
-  let years =
-    current.getFullYear() - birth.getFullYear();
-
-  let months =
-    current.getMonth() - birth.getMonth();
-
-  let days =
-    current.getDate() - birth.getDate();
+  let years = current.getFullYear() - birth.getFullYear();
+  let months = current.getMonth() - birth.getMonth();
+  let days = current.getDate() - birth.getDate();
 
   if (days < 0) {
-
     months--;
 
     const previousMonthDays = new Date(
@@ -659,31 +663,20 @@ function calculateAgeDetails(
     ).getDate();
 
     days += previousMonthDays;
-
   }
 
   if (months < 0) {
-
     years--;
     months += 12;
-
   }
 
-  // Find next birthday.
-
   function makeBirthday(year) {
-
-    // February 29 birthdays use February 28
-    // in non-leap years.
-
     if (
       birth.getMonth() === 1 &&
       birth.getDate() === 29 &&
       new Date(year, 1, 29).getMonth() !== 1
     ) {
-
       return new Date(year, 1, 28);
-
     }
 
     return new Date(
@@ -691,22 +684,16 @@ function calculateAgeDetails(
       birth.getMonth(),
       birth.getDate()
     );
-
   }
 
-  let nextBirthday =
-    makeBirthday(current.getFullYear());
+  let nextBirthday = makeBirthday(current.getFullYear());
 
   if (nextBirthday < current) {
-
-    nextBirthday =
-      makeBirthday(current.getFullYear() + 1);
-
+    nextBirthday = makeBirthday(current.getFullYear() + 1);
   }
 
-  const daysUntilBirthday = Math.round(
-    (nextBirthday - current) / millisecondsPerDay
-  );
+  const daysUntilBirthday =
+    daysBetweenDates(current, nextBirthday);
 
   return {
     years,
@@ -716,69 +703,44 @@ function calculateAgeDetails(
     totalWeeks: Math.floor(totalDays / 7),
     daysUntilBirthday
   };
-
 }
 
-// ========================================
-// AGE CALCULATOR BUTTON
-// ========================================
-
-const birthdayInput =
-  document.getElementById("birthday");
-
+const birthdayInput = document.getElementById("birthday");
 const calculateAgeButton =
   document.getElementById("calculate-age");
 
-const ageResult =
-  document.getElementById("age-result");
+const ageResult = document.getElementById("age-result");
 
-if (
-  birthdayInput &&
-  calculateAgeButton &&
-  ageResult
-) {
-
+if (birthdayInput && calculateAgeButton && ageResult) {
   calculateAgeButton.addEventListener("click", function () {
-
     if (!birthdayInput.value) {
-
       ageResult.textContent =
         "Please enter your birthday first! 🎂";
-
       return;
-
     }
 
-    const [year, month, day] =
-      birthdayInput.value.split("-").map(Number);
+    const birthDate = parseLocalDate(birthdayInput.value);
 
-    const birthDate = new Date(
-      year,
-      month - 1,
-      day
-    );
+    if (!birthDate) {
+      ageResult.textContent =
+        "Sorry, we couldn't calculate that date.";
+      return;
+    }
 
     const age = calculateAgeDetails(birthDate);
 
     if (!age) {
-
       ageResult.textContent =
         "Sorry, we couldn't calculate that date.";
-
       return;
-
     }
 
     if (age.error) {
-
       ageResult.textContent = age.error;
-
       return;
-
     }
 
     ageResult.innerHTML = `
-
       <h3>🎉 Your Age</h3>
 
       <p>
@@ -787,23 +749,17 @@ if (
         <strong>${age.days}</strong> days old!
       </p>
 
-      <p>
-        📅 Total days alive:
+      <p>📅 Total days alive:
         <strong>${age.totalDays.toLocaleString()}</strong>
       </p>
 
-      <p>
-        📆 Total complete weeks:
+      <p>📆 Total complete weeks:
         <strong>${age.totalWeeks.toLocaleString()}</strong>
       </p>
 
-      <p>
-        🎂 Days until your next birthday:
+      <p>🎂 Days until your next birthday:
         <strong>${age.daysUntilBirthday}</strong>
       </p>
-
     `;
-
   });
-
 }
