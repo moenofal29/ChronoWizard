@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Date Challenge | ChronoWizard</title>
+  <meta name="description" content="Learn the Doomsday Algorithm and challenge yourself to calculate the weekday of any date.">
+
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    /* DATE CHALLENGE PAGE */
+
+    .challenge-page {
+      width: min(100% - 32px, 1050px);
+      margin: 35px auto 100px;
+    }
+
+    .challenge-intro {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .challenge-intro h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 12px;
+    }
+
+    .challenge-intro h1 span {
+      color: var(--accent);
+    }
+
+    .challenge-intro p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .lesson-card,
+    .practice-card,
+    .score-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .lesson-card h2,
+    .practice-card h2 {
+      margin-top: 0;
+    }
+
+    .lesson-card h3 {
+      margin-top: 25px;
+      color: var(--accent);
+    }
+
+    .lesson-card p,
+    .lesson-card li {
+      line-height: 1.8;
+    }
+
+    .lesson-card ul,
+    .lesson-card ol {
+      padding-left: 24px;
+    }
+
+    .formula-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 16px 0;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    .formula-box strong {
+      color: var(--accent);
+    }
+
+    .anchor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .anchor-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .anchor-item strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .example-step {
+      padding: 15px;
+      margin: 12px 0;
+      border-left: 3px solid var(--accent);
+      background: var(--card);
+      border-radius: 7px;
+      line-height: 1.7;
+    }
+
+    .practice-card {
+      text-align: center;
+    }
+
+    .challenge-date {
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--accent);
+      margin: 22px 0;
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 22px auto;
+      max-width: 550px;
+    }
+
+    .answer-option {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .answer-option:hover:not(:disabled) {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .answer-option:disabled {
+      cursor: default;
+      opacity: 0.9;
+    }
+
+    .answer-option.correct {
+      border: 2px solid #22c55e;
+      background: rgba(34, 197, 94, 0.12);
+    }
+
+    .answer-option.wrong {
+      border: 2px solid #ef4444;
+      background: rgba(239, 68, 68, 0.12);
+    }
+
+    .challenge-button {
+      padding: 13px 23px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 8px;
+    }
+
+    .challenge-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .feedback-box {
+      display: none;
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+
+    .feedback-box.visible {
+      display: block;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+
+    .score-item {
+      background: var(--card);
+      padding: 16px 8px;
+      border-radius: 12px;
+    }
+
+    .score-item strong {
+      display: block;
+      font-size: 1.7rem;
+      color: var(--accent);
+    }
+
+    .score-item span {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .challenge-status {
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    @media (max-width: 550px) {
+      .lesson-card,
+      .practice-card,
+      .score-card {
+        padding: 18px;
+      }
+
+      .answer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .score-grid {
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER + NAVIGATION -->
+  <header class="site-header">
+    <div class="header-container">
+
+      <a href="../index.html" class="logo">
+        <img
+          src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
+          alt="ChronoWizard Logo"
+        >
+        <span>ChronoWizard</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a href="../calculator/index.html">Day Calculator</a>
+        <a href="../date-difference/index.html">Date Difference</a>
+        <a href="../age-calculator/index.html">Age Calculator</a>
+        <a href="../calendar/index.html">Calendar Explorer</a>
+        <a href="./index.html" class="active">Date Challenge</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="challenge-page">
+
+    <!-- INTRO -->
+    <section class="challenge-intro">
+      <p class="eyebrow">LEARN • PRACTICE • MASTER</p>
+
+      <h1>Master the <span>Calendar.</span></h1>
+
+      <p>
+        Learn a mathematical trick to calculate the weekday
+        of almost any date without looking at a calendar.
+      </p>
+    </section>
+
+    <!-- LESSON -->
+    <section class="lesson-card">
+
+      <h2>🧙‍♂️ Lesson 1: The Doomsday Algorithm</h2>
+
+      <p>
+        The Doomsday Algorithm is a mental calculation method
+        developed by mathematician John Conway. It helps you
+        determine the weekday of a date using a few simple steps.
+      </p>
+
+      <h3>Step 1: Understand the Doomsday</h3>
+
+      <p>
+        Every year has one special weekday called its
+        <strong>Doomsday</strong>. Certain memorable dates
+        always land on that weekday within the same year.
+      </p>
+
+      <p>Memorize these monthly anchor dates:</p>
+
+      <div class="anchor-grid">
+        <div class="anchor-item"><strong>Jan 3</strong>Non-leap year</div>
+        <div class="anchor-item"><strong>Jan 4</strong>Leap year</div>
+        <div class="anchor-item"><strong>Feb 28</strong>Non-leap year</div>
+        <div class="anchor-item"><strong>Feb 29</strong>Leap year</div>
+        <div class="anchor-item"><strong>Mar 14</strong>March</div>
+        <div class="anchor-item"><strong>Apr 4</strong>April</div>
+        <div class="anchor-item"><strong>May 9</strong>May</div>
+        <div class="anchor-item"><strong>Jun 6</strong>June</div>
+        <div class="anchor-item"><strong>Jul 11</strong>July</div>
+        <div class="anchor-item"><strong>Aug 8</strong>August</div>
+        <div class="anchor-item"><strong>Sep 5</strong>September</div>
+        <div class="anchor-item"><strong>Oct 10</strong>October</div>
+        <div class="anchor-item"><strong>Nov 7</strong>November</div>
+        <div class="anchor-item"><strong>Dec 12</strong>December</div>
+      </div>
+
+      <p>
+        For example, if a year's Doomsday is Friday,
+        July 11 and October 10 are Fridays too.
+      </p>
+
+      <h3>Step 2: Find the century anchor</h3>
+
+      <p>
+        The Gregorian calendar uses a repeating pattern of
+        century anchor weekdays. For our 1900–2100 challenge:
+      </p>
+
+      <div class="formula-box">
+        <strong>1900–1999:</strong> Wednesday (3)<br>
+        <strong>2000–2099:</strong> Tuesday (2)<br>
+        <strong>2100:</strong> Sunday (0)
+      </div>
+
+      <p>
+        Weekday numbers: Sunday = 0, Monday = 1,
+        Tuesday = 2, Wednesday = 3, Thursday = 4,
+        Friday = 5, Saturday = 6.
+      </p>
+
+      <h3>Step 3: Calculate the year's Doomsday</h3>
+
+      <p>
+        Take the last two digits of the year. Call this number Y.
+      </p>
+
+      <div class="formula-box">
+        <strong>Year calculation:</strong><br>
+        A = floor(Y ÷ 12)<br>
+        B = Y modulo 12<br>
+        C = floor(B ÷ 4)<br><br>
+        Add A + B + C + the century anchor.<br>
+        Divide the result by 7 and keep the remainder.
+      </div>
+
+      <p>
+        That remainder is the year's Doomsday weekday.
+      </p>
+
+      <h3>Step 4: Find your target date</h3>
+
+      <p>
+        Find the monthly anchor date, then count forward or
+        backward to your target date. Each day changes the
+        weekday by one, wrapping around after Saturday.
+      </p>
+
+      <h3>Worked Example: July 20, 1969</h3>
+
+      <p>
+        Let's calculate the weekday of the date humans first
+        landed on the Moon.
+      </p>
+
+      <div class="example-step">
+        <strong>1. Century anchor</strong><br>
+        1900s = Wednesday = 3.
+      </div>
+
+      <div class="example-step">
+        <strong>2. Last two digits</strong><br>
+        Y = 69<br>
+        A = floor(69 ÷ 12) = 5<br>
+        B = 69 modulo 12 = 9<br>
+        C = floor(9 ÷ 4) = 2.
+      </div>
+
+      <div class="example-step">
+        <strong>3. Find the Doomsday</strong><br>
+        3 + 5 + 9 + 2 = 19<br>
+        19 modulo 7 = 5<br>
+        Weekday 5 = Friday.
+      </div>
+
+      <div class="example-step">
+        <strong>4. Use July's anchor</strong><br>
+        July 11, 1969 was Friday.<br>
+        July 20 is 9 days later.<br>
+        Friday + 9 days = Sunday.
+      </div>
+
+      <div class="formula-box">
+        <strong>Final answer: July 20, 1969 was a Sunday!</strong>
+      </div>
+
+      <h3>Step 5: Remember leap years</h3>
+
+      <p>A Gregorian leap year:</p>
+
+      <ul>
+        <li>Must be divisible by 4.</li>
+        <li>Except years divisible by 100 are not leap years.</li>
+        <li>Unless the year is also divisible by 400.</li>
+      </ul>
+
+      <p>
+        This is why 2000 was a leap year, but 1900 was not.
+        The algorithm uses January 4 and February 29 as
+        its anchors in leap years.
+      </p>
+
+      <h3>Ready to practice?</h3>
+
+      <p>
+        Now that you've learned the method, try calculating
+        random dates between 1900 and 2100!
+      </p>
+
+    </section>
+
+    <!-- SCORE -->
+    <section class="score-card">
+      <h2>🏆 Your Progress</h2>
+
+      <div class="score-grid">
+        <div class="score-item">
+          <strong id="score-correct">0</strong>
+          <span>Correct</span>
+        </div>
+
+        <div class="score-item">
+          <strong id="score-total">0</strong>
+          <span>Attempts</span>
+        </div>
+
+        <div class="score-item">
+          <strong id="score-streak">0</strong>
+          <span>Best streak</span>
+        </div>
+      </div>
+
+      <p id="score-accuracy" class="challenge-status">
+        Accuracy: 0%
+      </p>
+    </section>
+
+    <!-- PRACTICE -->
+    <section class="practice-card" id="practice">
+
+      <p class="eyebrow">YOUR FIRST CHALLENGE</p>
+
+      <h2>🔮 Guess the Weekday</h2>
+
+      <p>
+        Use the Doomsday Algorithm to calculate the weekday
+        of this date.
+      </p>
+
+      <div class="challenge-date" id="challenge-date">
+        Loading...
+      </div>
+
+      <div class="answer-grid" id="answer-grid">
+        <button class="answer-option" type="button">Sunday</button>
+        <button class="answer-option" type="button">Monday</button>
+        <button class="answer-option" type="button">Tuesday</button>
+        <button class="answer-option" type="button">Wednesday</button>
+      </div>
+
+      <div id="feedback" class="feedback-box" aria-live="polite"></div>
+
+      <p id="challenge-status" class="challenge-status">
+        Choose your answer to begin.
+      </p>
+
+      <button id="next-challenge" class="challenge-button" type="button" disabled>
+        Next Challenge →
+      </button>
+
+      <button id="restart-challenge" class="challenge-button" type="button">
+        ↻ Reset Score
+      </button>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <a class="footer-brand" href="../index.html">
+      ✦ ChronoWizard
+    </a>
+
+    <p>
+      Every date has a story. Every day has a place in time.
+    </p>
+
+    <p class="creator-credit">
+      Created by <strong>Mohammad Nofal</strong> 🧙‍♂️
+    </p>
+
+    <a class="back-to-top" href="#">↑ Back to the top</a>
+
+  </footer>
+
+  <!-- THEME PICKER -->
+  <div class="theme-picker">
+
+    <button
+      id="theme-toggle"
+      class="theme-toggle"
+      type="button"
+      aria-label="Choose website colors"
+      aria-expanded="false"
+      aria-controls="theme-menu"
+    >
+      🎨
+    </button>
+
+    <div id="theme-menu" class="theme-menu" hidden>
+
+      <h3>Choose your vibe</h3>
+
+      <button class="theme-option active" type="button" data-theme="purple">
+        <span class="swatch purple"></span>
+        Purple Dream
+      </button>
+
+      <button class="theme-option" type="button" data-theme="ocean">
+        <span class="swatch ocean"></span>
+        Ocean Blue
+      </button>
+
+      <button class="theme-option" type="button" data-theme="forest">
+        <span class="swatch forest"></span>
+        Forest Green
+      </button>
+
+      <button class="theme-option" type="button" data-theme="sunset">
+        <span class="swatch sunset"></span>
+        Sunset Orange
+      </button>
+
+      <button class="theme-option" type="button" data-theme="rose">
+        <span class="swatch rose"></span>
+        Rose Pink
+      </button>
+
+      <button class="theme-option" type="button" data-theme="red">
+        <span class="swatch red"></span>
+        Cherry Red
+      </button>
+
+      <button class="theme-option" type="button" data-theme="gold">
+        <span class="swatch gold"></span>
+        Golden Hour
+      </button>
+
+      <button class="theme-option" type="button" data-theme="ice">
+        <span class="swatch ice"></span>
+        Ice Blue
+      </button>
+
+      <button class="theme-option" type="button" data-theme="midnight">
+        <span class="swatch midnight"></span>
+        Midnight Black
+      </button>
+
+      <button class="theme-option" type="button" data-theme="white">
+        <span class="swatch white"></span>
+        Glacier White
+      </button>
+
+      <button class="theme-option" type="button" data-theme="lavender">
+        <span class="swatch lavender"></span>
+        Soft Lavender
+      </button>
+
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+
+  <script>
+    // DATE CHALLENGE LOGIC
+
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+
+    const weekdayCodes = {
+      1900: 3,
+      2000: 2,
+      2100: 0
+    };
+
+    const monthAnchors = {
+      0: 3,
+      1: 28,
+      2: 14,
+      3: 4,
+      4: 9,
+      5: 6,
+      6: 11,
+      7: 8,
+      8: 5,
+      9: 10,
+      10: 7,
+      11: 12
+    };
+
+    function isLeapYear(year) {
+      return year % 400 === 0 ||
+        (year % 4 === 0 && year % 100 !== 0);
+    }
+
+    function getDoomsday(year) {
+      const century = Math.floor(year / 100) * 100;
+      const lastTwoDigits = year % 100;
+
+      const centuryAnchor = weekdayCodes[century];
+
+      if (centuryAnchor === undefined) {
+        throw new Error("Year outside supported range.");
+      }
+
+      const a = Math.floor(lastTwoDigits / 12);
+      const b = lastTwoDigits % 12;
+      const c = Math.floor(b / 4);
+
+      return (centuryAnchor + a + b + c) % 7;
+    }
+
+    function getMonthlyAnchor(year, month) {
+      if (month === 0) {
+        return isLeapYear(year) ? 4 : 3;
+      }
+
+      if (month === 1) {
+        return isLeapYear(year) ? 29 : 28;
+      }
+
+      return monthAnchors[month];
+    }
+
+    function calculateWeekday(year, month, day) {
+      const doomsday = getDoomsday(year);
+      const anchorDay = getMonthlyAnchor(year, month);
+
+      return (
+        doomsday + (day - anchorDay) % 7 + 7
+      ) % 7;
+    }
+
+    function getCalculationExplanation(year, month, day) {
+      const century = Math.floor(year / 100) * 100;
+      const y = year % 100;
+
+      const a = Math.floor(y / 12);
+      const b = y % 12;
+      const c = Math.floor(b / 4);
+
+      const anchor = weekdayCodes[century];
+      const doomsday = getDoomsday(year);
+      const monthlyAnchor = getMonthlyAnchor(year, month);
+      const difference = day - monthlyAnchor;
+
+      const anchorDate = new Date(year, month, monthlyAnchor);
+
+      const anchorName = weekdays[doomsday];
+      const result = calculateWeekday(year, month, day);
+
+      let movement;
+
+      if (difference > 0) {
+        movement = `${difference} days after`;
+      } else if (difference < 0) {
+        movement = `${Math.abs(difference)} days before`;
+      } else {
+        movement = "the same day as";
+      }
+
+      return `
+        <h3>How to solve it</h3>
+
+        <p><strong>1. Century anchor:</strong>
+        ${century}s = ${weekdays[anchor]} (${anchor}).</p>
+
+        <p><strong>2. Year calculation:</strong>
+        Y = ${y}<br>
+        A = ${a}, B = ${b}, C = ${c}.</p>
+
+        <p><strong>3. Find the year's Doomsday:</strong>
+        (${anchor} + ${a} + ${b} + ${c}) modulo 7
+        = ${anchor + a + b + c} modulo 7
+        = ${anchorName}.</p>
+
+        <p><strong>4. Monthly anchor:</strong>
+        ${monthNames[month]} ${monthlyAnchor}, ${year},
+        was ${anchorName}.</p>
+
+        <p><strong>5. Count the difference:</strong>
+        ${day} is ${movement} ${monthNames[month]}
+        ${monthlyAnchor}.</p>
+
+        <p><strong>Final answer: ${weekdays[result]}.</strong></p>
+      `;
+    }
+
+    const monthNames = [
+      "January", "February", "March", "April",
+      "May", "June", "July", "August",
+      "September", "October", "November", "December"
+    ];
+
+    let currentDate = null;
+    let answered = false;
+
+    let correctCount = 0;
+    let totalAttempts = 0;
+    let currentStreak = 0;
+    let bestStreak = 0;
+
+    const dateDisplay = document.getElementById("challenge-date");
+    const answerGrid = document.getElementById("answer-grid");
+    const feedback = document.getElementById("feedback");
+    const status = document.getElementById("challenge-status");
+    const nextButton = document.getElementById("next-challenge");
+    const restartButton = document.getElementById("restart-challenge");
+
+    function randomChallengeDate() {
+      const year = 1900 + Math.floor(Math.random() * 201);
+      const month = Math.floor(Math.random() * 12);
+      const day = 1 + Math.floor(
+        Math.random() * new Date(year, month + 1, 0).getDate()
+      );
+
+      return { year, month, day };
+    }
+
+    function formatDate(date) {
+      return `${monthNames[date.month]} ${date.day}, ${date.year}`;
+    }
+
+    function createChallenge() {
+      currentDate = randomChallengeDate();
+      answered = false;
+
+      dateDisplay.textContent = formatDate(currentDate);
+
+      feedback.innerHTML = "";
+      feedback.classList.remove("visible");
+
+      status.textContent = "Choose your answer to begin.";
+      nextButton.disabled = true;
+
+      const correctAnswer = calculateWeekday(
+        currentDate.year,
+        currentDate.month,
+        currentDate.day
+      );
+
+      let choices = [correctAnswer];
+
+      while (choices.length < 4) {
+        const candidate = Math.floor(Math.random() * 7);
+
+        if (!choices.includes(candidate)) {
+          choices.push(candidate);
+        }
+      }
+
+      // Shuffle choices.
+      choices.sort(() => Math.random() - 0.5);
+
+      answerGrid.innerHTML = "";
+
+      choices.forEach(day => {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "answer-option";
+        button.textContent = weekdays[day];
+
+        button.addEventListener("click", () => {
+          checkAnswer(day, correctAnswer, button);
+        });
+
+        answerGrid.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selected, correct, selectedButton) {
+      if (answered) return;
+
+      answered = true;
+      totalAttempts++;
+
+      const buttons = answerGrid.querySelectorAll("button");
+
+      buttons.forEach(button => {
+        button.disabled = true;
+
+        if (button.textContent === weekdays[correct]) {
+          button.classList.add("correct");
+        }
+      });
+
+      if (selected === correct) {
+        correctCount++;
+        currentStreak++;
+
+        bestStreak = Math.max(bestStreak, currentStreak);
+
+        status.textContent = "✨ Correct! Excellent work!";
+      } else {
+        currentStreak = 0;
+        selectedButton.classList.add("wrong");
+
+        status.textContent =
+          `Not quite! The correct answer is ${weekdays[correct]}.`;
+      }
+
+      feedback.innerHTML =
+        getCalculationExplanation(
+          currentDate.year,
+          currentDate.month,
+          currentDate.day
+        );
+
+      feedback.classList.add("visible");
+
+      nextButton.disabled = false;
+
+      updateScore();
+    }
+
+    function updateScore() {
+      document.getElementById("score-correct").textContent =
+        correctCount;
+
+      document.getElementById("score-total").textContent =
+        totalAttempts;
+
+      document.getElementById("score-streak").textContent =
+        bestStreak;
+
+      const accuracy = totalAttempts === 0
+        ? 0
+        : Math.round((correctCount / totalAttempts) * 100);
+
+      document.getElementById("score-accuracy").textContent =
+        `Accuracy: ${accuracy}% | Current streak: ${currentStreak}`;
+    }
+
+    nextButton.addEventListener("click", createChallenge);
+
+    restartButton.addEventListener("click", () => {
+      correctCount = 0;
+      totalAttempts = 0;
+      currentStreak = 0;
+      bestStreak = 0;
+
+      updateScore();
+      createChallenge();
+
+      status.textContent = "Score reset! Your next challenge is ready.";
+    });
+
+    // Start the first challenge.
+    updateScore();
+    createChallenge();
+  </script>
+
+</body>
+</html>
