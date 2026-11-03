@@ -1923,3 +1923,142 @@ button {
     padding: 18px 12px;
   }
 }
+
+/* =========================================
+   CHRONOWIZARD — COSMIC TIME FOUNDATION
+   Step 1: Atmosphere, stars, and motion
+========================================= */
+
+body {
+    position: relative;
+    isolation: isolate;
+    background-color: #080B1A;
+    color: #E9ECFF;
+}
+
+/* Cosmic nebula glow */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(139, 108, 255, 0.20),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(98, 200, 255, 0.13),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(23, 19, 59, 0.45),
+            transparent 65%
+        ),
+        #080B1A;
+}
+
+/* Subtle drifting starfield */
+body::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -1;
+    pointer-events: none;
+
+    opacity: 0.45;
+
+    background-image:
+        radial-gradient(2px 2px at 40px 60px, #FFFFFF 50%, transparent 100%),
+        radial-gradient(1px 1px at 120px 180px, #FFFFFF 50%, transparent 100%),
+        radial-gradient(2px 2px at 250px 100px, #8B6CFF 50%, transparent 100%),
+        radial-gradient(1px 1px at 300px 280px, #FFFFFF 50%, transparent 100%),
+        radial-gradient(2px 2px at 420px 220px, #62C8FF 50%, transparent 100%),
+        radial-gradient(1px 1px at 500px 50px, #FFFFFF 50%, transparent 100%);
+
+    background-size: 550px 350px;
+    animation: cw-cosmic-drift 100s linear infinite;
+}
+
+/* Keep page content above the atmosphere */
+.site-header,
+.app,
+.site-footer,
+main,
+footer {
+    position: relative;
+}
+
+/* Cleaner typography */
+.site-header,
+.app,
+main {
+    font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+/* Cosmic heading glow */
+.hero h1,
+.app h1 {
+    color: #E9ECFF;
+    text-shadow:
+        0 0 18px rgba(139, 108, 255, 0.22),
+        0 0 35px rgba(98, 200, 255, 0.10);
+}
+
+/* Soft cosmic card lighting */
+.calculator,
+.occurrence-card,
+.year-match-card {
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.20),
+        0 0 25px rgba(139, 108, 255, 0.07);
+}
+
+/* Gentle hover glow */
+.calculator,
+.occurrence-card,
+.year-match-card,
+.quick-nav a {
+    transition:
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.35s ease;
+}
+
+.calculator:hover,
+.occurrence-card:hover,
+.year-match-card:hover {
+    box-shadow:
+        0 14px 45px rgba(0, 0, 0, 0.28),
+        0 0 30px rgba(139, 108, 255, 0.14);
+}
+
+/* Slow star movement */
+@keyframes cw-cosmic-drift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-100px, 80px, 0);
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    body::after {
+        animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
