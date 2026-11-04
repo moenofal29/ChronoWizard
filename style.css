@@ -2540,3 +2540,340 @@ main {
     transform: none;
   }
 }
+
+
+/* =========================================
+   TEXT ON THE COSMIC BACKGROUND
+   The header, hero and footer sit on the
+   always-dark space background, so their text
+   must not switch to dark in light themes
+   such as Glacier White.
+========================================= */
+.site-header .brand,
+.site-header .brand-name,
+.site-header .logo,
+.site-header .logo span {
+  color: #E9ECFF;
+}
+
+.main-nav a {
+  color: rgba(233, 236, 255, 0.78);
+}
+
+@media (max-width: 900px) {
+  .main-nav a {
+    color: #E9ECFF;
+  }
+}
+
+.hero .subtitle,
+.home-hero .subtitle,
+.section-heading p,
+.about-section p,
+.site-footer p {
+  color: rgba(233, 236, 255, 0.72);
+}
+
+
+/* =========================================
+   DAY CALCULATOR PAGE  (body.page-day)
+   Cards, icons, result and timeline.
+   Colors flow from the theme variables so all
+   11 themes keep working.
+========================================= */
+
+/* Glass cards */
+body.page-day .calculator,
+body.page-day .occurrence-card,
+body.page-day .year-match-card {
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 24px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 0 40px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+body.page-day .calculator {
+  text-align: left;
+}
+
+/* Card heading with glowing icon badge */
+.cw-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.cw-card-head h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: var(--text);
+}
+
+.cw-card-head p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.cw-badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 24%, transparent),
+    rgba(98, 200, 255, 0.10)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.cw-badge svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+/* Section titles with small icons */
+.cw-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cw-section-title svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Reveal button */
+body.page-day #calculate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 70%, #62C8FF)
+  );
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+body.page-day #calculate svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Share button icon (CSS, so it survives the script changing the label text) */
+body.page-day #share-result {
+  border-radius: 14px;
+}
+
+body.page-day #share-result::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: -3px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Result */
+body.page-day #result {
+  margin-top: 16px;
+  padding: 24px 18px;
+  text-align: center;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 18px;
+}
+
+.result-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.result-weekday {
+  margin: 8px 0 4px;
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  background: linear-gradient(90deg, var(--accent), #62C8FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.result-date {
+  font-size: 15px;
+  color: var(--result);
+}
+
+.result-skipped {
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--result);
+}
+
+.result-note {
+  margin-top: 18px;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #E7C778;
+  background: rgba(231, 199, 120, 0.09);
+  border: 1px solid rgba(231, 199, 120, 0.28);
+  border-radius: 12px;
+}
+
+.result-note strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Previous / next weekday cards */
+body.page-day .occurrence-item {
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+body.page-day .occurrence-item span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+body.page-day .occurrence-item svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Same date, same weekday: vertical timeline */
+body.page-day .year-match-result.cw-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.cw-node {
+  padding: 14px 12px;
+  text-align: center;
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 16px;
+}
+
+.cw-node-current {
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.cw-node-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cw-node-label svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+body.page-day .cw-node strong,
+body.page-day #year-match-original,
+body.page-day #year-match-next {
+  display: block;
+  margin: 8px 0 4px;
+  font-size: 18px;
+  font-weight: 750;
+  color: var(--result);
+}
+
+body.page-day .cw-node small,
+body.page-day #year-match-years {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cw-connector {
+  display: block;
+  width: 2px;
+  height: 22px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent) 70%, transparent),
+    rgba(98, 200, 255, 0.7)
+  );
+}
+
+
+/* Inner-page header on phones and tablets: logo left, hamburger right,
+   on one row (the older 850px rule stacked them in a column). */
+@media (max-width: 900px) {
+  .site-header .header-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+}

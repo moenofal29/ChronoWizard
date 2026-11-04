@@ -178,7 +178,7 @@ let shareText = "";
 if (dateInput && calculateButton && result) {
   calculateButton.addEventListener("click", function () {
     if (!dateInput.value) {
-      result.textContent = "Choose a date first! 📅";
+      result.textContent = "Choose a date first!";
       shareText = "";
 
       if (shareButton) {
@@ -194,8 +194,8 @@ if (dateInput && calculateButton && result) {
 
     if (isSkippedHistoricalDate(year, month, day)) {
       result.innerHTML = `
-        <div style="font-size:24px;font-weight:800">
-          📜 That date was skipped!
+        <div class="result-skipped">
+          That date was skipped!
         </div>
         <p>
           In regions that first adopted the Gregorian
@@ -232,7 +232,7 @@ if (dateInput && calculateButton && result) {
 
     if (shareButton) {
       shareButton.disabled = false;
-      shareButton.textContent = "📤 Share Your Result";
+      shareButton.textContent = "Share Your Result";
     }
 
     // SAME WEEKDAY IN OTHER YEARS
@@ -376,16 +376,8 @@ if (dateInput && calculateButton && result) {
 
     if (useJulian) {
       historicalNote = `
-        <div style="
-          margin-top:16px;
-          padding:12px;
-          border-radius:10px;
-          background:var(--historical-note-bg, #40351f);
-          color:var(--historical-note-text, #ffe0a3);
-          font-size:13px;
-          line-height:1.6;
-        ">
-          📜 Historical calendar note<br><br>
+        <div class="result-note">
+          <strong>Historical calendar note</strong>
           This weekday uses the Julian calendar.
           The Gregorian calendar was introduced in 1582,
           but different countries adopted it at different times.
@@ -396,11 +388,9 @@ if (dateInput && calculateButton && result) {
     }
 
     result.innerHTML = `
-      <div style="font-size:14px">YOUR ANSWER IS...</div>
-      <div style="font-size:32px;font-weight:800;margin:10px 0">
-        ${weekday}!
-      </div>
-      <div>${month}/${day}/${year}</div>
+      <div class="result-label">YOUR ANSWER IS...</div>
+      <div class="result-weekday">${weekday}!</div>
+      <div class="result-date">${month}/${day}/${year}</div>
       ${historicalNote}
     `;
   });
@@ -816,7 +806,7 @@ async function copyShareText() {
     await navigator.clipboard.writeText(shareText);
 
     shareButton.textContent =
-      "✅ Copied! Ready to share";
+      "Copied! Ready to share";
   } catch (error) {
     window.prompt(
       "Copy your result:",
