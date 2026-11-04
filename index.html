@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>ChronoWizard 🧙‍♂️ — The Magic of Time</title>
+  <title>ChronoWizard — The Magic of Time</title>
 
   <meta name="description" content="Explore time with ChronoWizard. Discover weekdays, calculate dates, explore calendar patterns, and challenge your knowledge of time.">
 
@@ -28,6 +28,7 @@
 
   <!-- HEADER -->
   <header class="site-header">
+
     <a class="brand" href="/" aria-label="ChronoWizard home">
       <img
         src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
@@ -39,8 +40,14 @@
 
     <span class="brand-tag">THE MAGIC OF TIME</span>
 
-    <button class="menu-toggle" id="menu-toggle" type="button"
-      aria-label="Open navigation" aria-expanded="false">
+    <button
+      class="menu-toggle"
+      id="menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-expanded="false"
+      aria-controls="main-nav"
+    >
       ☰
     </button>
 
@@ -52,155 +59,218 @@
       <a href="/calendar/">Calendar Explorer</a>
       <a href="/challenge/">Date Challenge</a>
     </nav>
+
   </header>
 
   <main>
 
-    
-<!-- HERO -->
-<section class="hero home-hero">
-  <p class="eyebrow">YOUR PERSONAL TIME EXPLORER</p>
+    <!-- HERO -->
+    <section class="hero home-hero">
 
-  <h1>Every date has a <span>story.</span></h1>
+      <p class="eyebrow">YOUR PERSONAL TIME EXPLORER</p>
 
-  <p class="subtitle">
-    From discovering the weekday of your birthday
-    to exploring the mysteries of the calendar.
-    Your journey through time starts here.
-  </p>
+      <h1>Every date has a <span>story.</span></h1>
 
-  <a href="/calculator/" class="home-cta">
-    Explore the Day Calculator
-  </a>
-</section>
+      <p class="subtitle">
+        From discovering the weekday of your birthday
+        to exploring the mysteries of the calendar.
+        Your journey through time starts here.
+      </p>
 
-<!-- COSMIC ORBITAL CLOCK -->
-<section class="cosmic-clock-section" aria-label="ChronoWizard cosmic clock">
-  <p class="cosmic-clock-label">A NEW PERSPECTIVE ON TIME</p>
+      <a href="/calculator/" class="home-cta">
+        Explore the Day Calculator
+      </a>
 
-  <div class="cosmic-clock">
-    <div class="orbit orbit-one">
-      <span class="orbit-dot"></span>
-    </div>
+    </section>
 
-    <div class="orbit orbit-two">
-      <span class="orbit-dot"></span>
-    </div>
 
-    <div class="orbit orbit-three">
-      <span class="orbit-dot"></span>
-    </div>
+    <!-- COSMIC ORBITAL CLOCK -->
+    <section
+      class="cosmic-clock-section"
+      aria-label="ChronoWizard cosmic clock"
+    >
 
-    <div class="clock-core">
-      <div class="core-glow"></div>
-      <div class="core-content">
-        <span class="core-title">CHRONO</span>
-        <span class="core-title core-title-bottom">WIZARD</span>
-        <span class="core-caption">THE MAGIC OF TIME</span>
+      <p class="cosmic-clock-label">
+        A NEW PERSPECTIVE ON TIME
+      </p>
+
+      <div class="cosmic-clock">
+
+        <div class="orbit orbit-one">
+          <span class="orbit-dot"></span>
+        </div>
+
+        <div class="orbit orbit-two">
+          <span class="orbit-dot"></span>
+        </div>
+
+        <div class="orbit orbit-three">
+          <span class="orbit-dot"></span>
+        </div>
+
+        <div class="clock-core">
+
+          <div class="core-glow"></div>
+
+          <div class="core-content">
+            <span class="core-title">CHRONO</span>
+            <span class="core-title core-title-bottom">WIZARD</span>
+            <span class="core-caption">THE MAGIC OF TIME</span>
+          </div>
+
+        </div>
+
       </div>
-    </div>
-  </div>
 
-  <p class="cosmic-clock-caption">
-    Every moment is part of something bigger.
-  </p>
-</section>
+      <p class="cosmic-clock-caption">
+        Every moment is part of something bigger.
+      </p>
 
-<!-- FEATURES -->
-<section class="tools-section">
-  <div class="section-heading">
-    <p class="eyebrow">EXPLORE THE POSSIBILITIES</p>
-    <h2>Your Time Toolkit</h2>
-    <p>Choose your next adventure.</p>
-  </div>
+    </section>
 
-  <div class="tools-grid">
 
-    <a href="/calculator/" class="tool-card">
-      <span class="tool-icon">
-      <h3>Day Calculator</h3>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="3" y="5" width="18" height="16" rx="3"/>
-    <path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h2"/>
-  </svg>
-</span>
+    <!-- FEATURES / TIME TOOLKIT -->
+    <section class="tools-section">
 
-    <a href="/date-difference/" class="tool-card">
-      <span class="tool-icon">
-      <h3>Date Difference</h3>
-      <p>Find out how much time exists between two dates.</p>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/>
-    <path d="M9 17h6"/>
-  </svg>
-</span>
+      <div class="section-heading">
+        <p class="eyebrow">EXPLORE THE POSSIBILITIES</p>
+        <h2>Your Time Toolkit</h2>
+        <p>Choose your next adventure.</p>
+      </div>
 
-    <a href="/age-calculator/" class="tool-card">
-      <span class="tool-icon">
-      <h3>Age Calculator</h3>
-      <p>Discover your age in years, months, and days.</p>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M4 12h16v8H4zM4 16h16M8 12V9M16 12V9"/>
-    <path d="M8 6c-1-1 1-2 0-3M12 6c-1-1 1-2 0-3M16 6c-1-1 1-2 0-3"/>
-    <path d="M3 20h18"/>
-  </svg>
-</span>
+      <div class="tools-grid">
 
-    <a href="/calendar/" class="tool-card">
-      <span class="tool-icon">
-      <h3>Calendar Explorer</h3>
-      <p>Explore calendar patterns and fascinating date connections.</p>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="10" r="7"/>
-    <path d="M8 20h8M10 17v3M14 17v3M9 10l2 2 4-4"/>
-    <path d="M18 3l1-2M21 7l2-1"/>
-  </svg>
-</span>
+        <!-- DAY CALCULATOR -->
+        <a href="/calculator/" class="tool-card">
 
-    <a href="/challenge/" class="tool-card">
-      <span class="tool-icon">
-      <h3>Date Challenge</h3>
-      <p>Test your ability to identify the weekday of a random date.</p>
-      <span class="tool-icon">
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M12 4a3 3 0 0 0-5-2 3 3 0 0 0-3 5 3 3 0 0 0 0 5 3 3 0 0 0 3 5 3 3 0 0 0 5-2z"/>
-    <path d="M12 4a3 3 0 0 1 5-2 3 3 0 0 1 3 5 3 3 0 0 1 0 5 3 3 0 0 1-3 5 3 3 0 0 1-5-2z"/>
-    <path d="M12 4v16M8 8l2 2M16 8l-2 2M8 14l2-1M16 14l-2-1"/>
-  </svg>
-</span>
+          <span class="tool-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="3"/>
+              <path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h2"/>
+            </svg>
+          </span>
 
-  </div>
-</section>
+          <h3>Day Calculator</h3>
+          <p>Discover the weekday of any date, past or future.</p>
+          <span class="tool-link">Explore calculator →</span>
+
+        </a>
+
+
+        <!-- DATE DIFFERENCE -->
+        <a href="/date-difference/" class="tool-card">
+
+          <span class="tool-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/>
+              <path d="M9 17h6"/>
+            </svg>
+          </span>
+
+          <h3>Date Difference</h3>
+          <p>Find out how much time exists between two dates.</p>
+          <span class="tool-link">Explore dates →</span>
+
+        </a>
+
+
+        <!-- AGE CALCULATOR -->
+        <a href="/age-calculator/" class="tool-card">
+
+          <span class="tool-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h16v8H4zM4 16h16M8 12V9M16 12V9"/>
+              <path d="M8 6c-1-1 1-2 0-3M12 6c-1-1 1-2 0-3M16 6c-1-1 1-2 0-3"/>
+              <path d="M3 20h18"/>
+            </svg>
+          </span>
+
+          <h3>Age Calculator</h3>
+          <p>Discover your age in years, months, and days.</p>
+          <span class="tool-link">Calculate age →</span>
+
+        </a>
+
+
+        <!-- CALENDAR EXPLORER -->
+        <a href="/calendar/" class="tool-card">
+
+          <span class="tool-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="10" r="7"/>
+              <path d="M8 20h8M10 17v3M14 17v3M9 10l2 2 4-4"/>
+              <path d="M18 3l1-2M21 7l2-1"/>
+            </svg>
+          </span>
+
+          <h3>Calendar Explorer</h3>
+          <p>Explore calendar patterns and fascinating date connections.</p>
+          <span class="tool-link">Explore calendars →</span>
+
+        </a>
+
+
+        <!-- DATE CHALLENGE -->
+        <a href="/challenge/" class="tool-card">
+
+          <span class="tool-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4a3 3 0 0 0-5-2 3 3 0 0 0-3 5 3 3 0 0 0 0 5 3 3 0 0 0 3 5 3 3 0 0 0 5-2z"/>
+              <path d="M12 4a3 3 0 0 1 5-2 3 3 0 0 1 3 5 3 3 0 0 1 0 5 3 3 0 0 1-3 5 3 3 0 0 1-5-2z"/>
+              <path d="M12 4v16M8 8l2 2M16 8l-2 2M8 14l2-1M16 14l-2-1"/>
+            </svg>
+          </span>
+
+          <h3>Date Challenge</h3>
+          <p>Test your ability to identify the weekday of a random date.</p>
+          <span class="tool-link">Take the challenge →</span>
+
+        </a>
+
+      </div>
+
+    </section>
 
 
     <!-- ABOUT -->
     <section class="about-section">
+
       <p class="eyebrow">THE MAGIC OF TIME</p>
+
       <h2>More than just dates.</h2>
+
       <p>
         Every date holds a story. ChronoWizard helps you
         discover the patterns, connections, and moments
         hidden throughout the calendar.
       </p>
+
     </section>
 
   </main>
 
+
   <!-- FOOTER -->
   <footer class="site-footer">
+
     <a class="footer-brand" href="/">
-      ✦ ChronoWizard
+      ChronoWizard
     </a>
 
-    <p>Every date has a story. Every day has a place in time.</p>
+    <p>
+      Every date has a story. Every day has a place in time.
+    </p>
 
     <p class="creator-credit">
-      Created by <strong>Mohammad Nofal</strong> 🧙‍♂️
+      Created by <strong>Mohammad Nofal</strong>
     </p>
+
   </footer>
+
 
   <!-- THEME PICKER -->
   <div class="theme-picker">
+
     <button
       id="theme-toggle"
       class="theme-toggle"
@@ -209,64 +279,88 @@
       aria-expanded="false"
       aria-controls="theme-menu"
     >
-      🎨
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>
+      </svg>
     </button>
 
     <div id="theme-menu" class="theme-menu" hidden>
+
       <h3>Choose your vibe</h3>
 
       <button class="theme-option active" type="button" data-theme="purple">
         <span class="swatch purple"></span> Purple Dream
       </button>
+
       <button class="theme-option" type="button" data-theme="ocean">
         <span class="swatch ocean"></span> Ocean Blue
       </button>
+
       <button class="theme-option" type="button" data-theme="forest">
         <span class="swatch forest"></span> Forest Green
       </button>
+
       <button class="theme-option" type="button" data-theme="sunset">
         <span class="swatch sunset"></span> Sunset Orange
       </button>
+
       <button class="theme-option" type="button" data-theme="rose">
         <span class="swatch rose"></span> Rose Pink
       </button>
+
       <button class="theme-option" type="button" data-theme="red">
         <span class="swatch red"></span> Cherry Red
       </button>
+
       <button class="theme-option" type="button" data-theme="gold">
         <span class="swatch gold"></span> Golden Hour
       </button>
+
       <button class="theme-option" type="button" data-theme="ice">
         <span class="swatch ice"></span> Ice Blue
       </button>
+
       <button class="theme-option" type="button" data-theme="midnight">
         <span class="swatch midnight"></span> Midnight Black
       </button>
+
       <button class="theme-option" type="button" data-theme="white">
         <span class="swatch white"></span> Glacier White
       </button>
+
       <button class="theme-option" type="button" data-theme="lavender">
         <span class="swatch lavender"></span> Soft Lavender
       </button>
+
     </div>
+
   </div>
 
+
+  <!-- SHARED WEBSITE SCRIPT -->
   <script src="./script.js"></script>
 
+
+  <!-- MOBILE NAVIGATION -->
   <script>
     const menuToggle = document.getElementById("menu-toggle");
     const mainNav = document.getElementById("main-nav");
 
     menuToggle.addEventListener("click", () => {
       const isOpen = mainNav.classList.toggle("open");
+
       menuToggle.setAttribute("aria-expanded", isOpen);
+
       menuToggle.setAttribute(
         "aria-label",
         isOpen ? "Close navigation" : "Open navigation"
       );
+
       menuToggle.textContent = isOpen ? "✕" : "☰";
     });
   </script>
 
 </body>
 </html>
+
