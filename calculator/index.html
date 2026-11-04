@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 
-<body>
+<body class="page-day">
 
   <!-- HEADER + NAVIGATION -->
   <header class="site-header">
@@ -26,7 +26,22 @@
         <span>ChronoWizard</span>
       </a>
 
-      <nav class="main-nav" aria-label="Main navigation">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path class="menu-line line-top" d="M4 7h16"/>
+          <path class="menu-line line-middle" d="M4 12h16"/>
+          <path class="menu-line line-bottom" d="M4 17h16"/>
+        </svg>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <a href="../index.html">Home</a>
         <a href="./index.html" class="active">Day Calculator</a>
         <a href="../date-difference/index.html">Date Difference</a>
@@ -55,16 +70,29 @@
     <!-- DATE CALCULATOR -->
     <section class="calculator" id="calculator-section">
 
-      <h2>📅 Day Calculator</h2>
-
-      <p>Choose any date and let ChronoWizard reveal its weekday.</p>
+      <div class="cw-card-head">
+        <span class="cw-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="3"/>
+            <path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+          </svg>
+        </span>
+        <div>
+          <h2>Day Calculator</h2>
+          <p>Choose any date and let ChronoWizard reveal its weekday.</p>
+        </div>
+      </div>
 
       <label for="date">Choose any date</label>
 
       <input type="date" id="date">
 
       <button id="calculate" type="button">
-        ✨ Reveal the day ✨
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+          <path d="M20 3v4M22 5h-4M4 17v2M5 18H3"/>
+        </svg>
+        Reveal the day
       </button>
 
       <div id="result" aria-live="polite">
@@ -72,7 +100,7 @@
       </div>
 
       <button id="share-result" type="button" disabled>
-        📤 Share Your Result
+        Share Your Result
       </button>
 
     </section>
@@ -80,7 +108,12 @@
     <!-- PREVIOUS AND NEXT WEEKLY OCCURRENCES -->
     <section class="occurrence-card" id="weekly-section">
 
-      <h2>🔮 Find That Weekday Again</h2>
+      <h2 class="cw-section-title">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/>
+        </svg>
+        Find That Weekday Again
+      </h2>
 
       <p>
         Discover the previous and next time that weekday occurred.
@@ -89,13 +122,19 @@
       <div class="occurrence-results">
 
         <div class="occurrence-item">
-          <span>⬅️ Previous</span>
+          <span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Previous
+          </span>
           <strong id="previous-date">—</strong>
           <small id="previous-gap"></small>
         </div>
 
         <div class="occurrence-item">
-          <span>➡️ Next</span>
+          <span>
+            Next
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
           <strong id="next-date">—</strong>
           <small id="next-gap"></small>
         </div>
@@ -107,32 +146,43 @@
     <!-- SAME DATE, SAME WEEKDAY -->
     <section class="year-match-card" id="year-match-section">
 
-      <h2>✨ Same Date, Same Weekday</h2>
+      <h2 class="cw-section-title">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2"/>
+        </svg>
+        Same Date, Same Weekday
+      </h2>
 
       <p>
         When will this exact date fall on the same weekday again?
       </p>
 
-      <div class="year-match-result">
+      <div class="year-match-result cw-timeline">
 
-        <div class="year-match-item">
-          <span>⬅️ Last time</span>
-          <strong id="year-match-previous">Choose a date first 📅</strong>
+        <div class="year-match-item cw-node">
+          <span class="cw-node-label">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Last time
+          </span>
+          <strong id="year-match-previous">Choose a date first</strong>
           <small id="year-match-previous-years"></small>
         </div>
 
-        <span class="arrow">📅</span>
+        <span class="cw-connector" aria-hidden="true"></span>
 
-        <div class="year-match-item">
-          <span>Your selected date</span>
+        <div class="year-match-item cw-node cw-node-current">
+          <span class="cw-node-label">Your selected date</span>
           <strong id="year-match-original">Your selected date</strong>
         </div>
 
-        <span class="arrow">📅</span>
+        <span class="cw-connector" aria-hidden="true"></span>
 
-        <div class="year-match-item">
-          <span>➡️ Next time</span>
-          <strong id="year-match-next">Choose a date first 📅</strong>
+        <div class="year-match-item cw-node">
+          <span class="cw-node-label">
+            Next time
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+          <strong id="year-match-next">Choose a date first</strong>
           <small id="year-match-years"></small>
         </div>
 
@@ -154,7 +204,7 @@
     </p>
 
     <p class="creator-credit">
-      Created by <strong>Mohammad Nofal</strong> 🧙‍♂️
+      Created by <strong>Mohammad Nofal</strong>
     </p>
 
     <a class="back-to-top" href="#">↑ Back to the top</a>
@@ -172,7 +222,13 @@
       aria-expanded="false"
       aria-controls="theme-menu"
     >
-      🎨
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>
+        <circle cx="13.5" cy="6.5" r=".6" fill="currentColor"/>
+        <circle cx="17.5" cy="10.5" r=".6" fill="currentColor"/>
+        <circle cx="6.5" cy="12.5" r=".6" fill="currentColor"/>
+        <circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/>
+      </svg>
     </button>
 
     <div id="theme-menu" class="theme-menu" hidden>
@@ -238,6 +294,22 @@
   </div>
 
   <script src="../script.js"></script>
+
+  <!-- MOBILE NAVIGATION -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainNav = document.getElementById("main-nav");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainNav.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", isOpen);
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+    });
+  </script>
 
 </body>
 </html>
