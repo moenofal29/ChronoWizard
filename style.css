@@ -2428,3 +2428,115 @@ main {
         background: rgba(139, 108, 255, 0.12);
     }
 }
+
+
+/* =========================================
+   COSMIC REFINEMENT — HEADER, HAMBURGER,
+   FLOATING THEME BUTTON
+   (keep this block at the very end of the
+   file so it wins over the older rules above)
+========================================= */
+
+/* Header: dark translucent glass instead of the theme-tinted panel color.
+   z-index keeps the header (and the open mobile menu) above the page content,
+   because backdrop-filter makes the header its own stacking layer. */
+.site-header {
+  z-index: 50;
+  background: rgba(8, 11, 26, 0.72);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(139, 108, 255, 0.28);
+}
+
+/* Hamburger: beat the generic `button:not(...)` accent background */
+.site-header button.menu-toggle {
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  padding: 0;
+  color: #E9ECFF;
+  background: rgba(139, 108, 255, 0.12);
+  border: 1px solid rgba(139, 108, 255, 0.4);
+  border-radius: 14px;
+}
+
+.site-header button.menu-toggle:hover,
+.site-header button.menu-toggle[aria-expanded="true"] {
+  filter: none;
+  background: rgba(98, 200, 255, 0.10);
+  border-color: #62C8FF;
+  box-shadow: 0 0 20px rgba(98, 200, 255, 0.22);
+}
+
+@media (max-width: 900px) {
+  /* Keep logo left and hamburger right on one row */
+  .site-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .site-header button.menu-toggle {
+    margin-left: auto;
+  }
+
+  /* Mobile panel stays near-opaque so page text never shows through
+     (the header's own blur prevents a nested blur from working) */
+  .main-nav.open {
+    background: rgba(8, 11, 26, 0.97);
+    border-color: rgba(139, 108, 255, 0.35);
+  }
+}
+
+/* Floating theme button: dark glass rounded square.
+   Icon and border follow the active theme's accent
+   (violet in the default Purple Dream theme). */
+.theme-picker .theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  color: var(--accent);
+  background: rgba(12, 15, 36, 0.72);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 18px color-mix(in srgb, var(--accent) 20%, transparent);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
+}
+
+.theme-picker .theme-toggle:hover {
+  transform: translateY(-3px);
+  color: #62C8FF;
+  border-color: #62C8FF;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(98, 200, 255, 0.35);
+}
+
+.theme-picker .theme-toggle:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-picker .theme-toggle {
+    transition: none;
+  }
+
+  .theme-picker .theme-toggle:hover,
+  .theme-picker .theme-toggle:active {
+    transform: none;
+  }
+}
