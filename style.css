@@ -2318,3 +2318,14 @@ main {
 .tool-card:hover .tool-icon svg {
     stroke: #62C8FF;
 }
+
+/* Cosmic theme picker SVG */
+.theme-toggle svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
