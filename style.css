@@ -2329,3 +2329,102 @@ main {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
+
+/* =========================================
+   CHRONOWIZARD — COSMIC NAVIGATION
+========================================= */
+
+.menu-toggle {
+    display: none;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+
+    color: #E9ECFF;
+    background: rgba(139, 108, 255, 0.12);
+    border: 1px solid rgba(139, 108, 255, 0.4);
+    border-radius: 14px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    border-color: #62C8FF;
+    box-shadow: 0 0 20px rgba(98, 200, 255, 0.2);
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon {
+    transform: rotate(90deg);
+}
+
+.menu-line {
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.menu-toggle[aria-expanded="true"] .line-top {
+    transform: translateY(5px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .line-middle {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .line-bottom {
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+/* Mobile navigation */
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    .main-nav.open {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 100;
+
+        padding: 22px;
+        background: rgba(8, 11, 26, 0.97);
+        border: 1px solid rgba(139, 108, 255, 0.3);
+        border-radius: 0 0 18px 18px;
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .main-nav a {
+        color: #E9ECFF;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 10px;
+        transition: all 0.25s ease;
+    }
+
+    .main-nav a:hover {
+        color: #62C8FF;
+        background: rgba(139, 108, 255, 0.12);
+    }
+}
