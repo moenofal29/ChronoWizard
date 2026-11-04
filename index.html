@@ -349,23 +349,22 @@
 
 
   <!-- MOBILE NAVIGATION -->
-  <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const mainNav = document.getElementById("main-nav");
+  
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mainNav = document.getElementById("main-nav");
 
-    menuToggle.addEventListener("click", () => {
-      const isOpen = mainNav.classList.toggle("open");
+  menuToggle.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("open");
 
-      menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation"
+    );
+  });
+</script>
 
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-
-      menuToggle.textContent = isOpen ? "✕" : "☰";
-    });
-  </script>
 
 </body>
 </html>
