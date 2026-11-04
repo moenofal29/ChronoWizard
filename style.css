@@ -2272,3 +2272,49 @@ main {
         animation: none;
     }
 }
+
+/* =========================================
+   CHRONOWIZARD — COSMIC SVG ICON SYSTEM
+========================================= */
+
+.tool-icon {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(139, 108, 255, 0.18),
+        rgba(98, 200, 255, 0.10)
+    );
+
+    border: 1px solid rgba(139, 108, 255, 0.35);
+    box-shadow: 0 0 22px rgba(139, 108, 255, 0.10);
+
+    transition: 0.3s ease;
+}
+
+.tool-icon svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: #8B6CFF;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter: drop-shadow(0 0 5px rgba(139, 108, 255, 0.55));
+}
+
+.tool-card:hover .tool-icon {
+    transform: translateY(-4px);
+    border-color: #62C8FF;
+    box-shadow: 0 0 25px rgba(98, 200, 255, 0.25);
+}
+
+.tool-card:hover .tool-icon svg {
+    stroke: #62C8FF;
+}
