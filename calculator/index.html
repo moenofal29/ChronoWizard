@@ -14,11 +14,11 @@
 
 <body class="page-day">
 
-  <!-- HEADER + NAVIGATION -->
+  <!-- STANDARD CHRONOWIZARD HEADER -->
   <header class="site-header">
     <div class="header-container">
 
-      <a href="../index.html" class="logo">
+      <a href="../index.html" class="logo" aria-label="ChronoWizard home">
         <img
           src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
           alt="ChronoWizard Logo"
@@ -30,7 +30,7 @@
         class="menu-toggle"
         id="menu-toggle"
         type="button"
-        aria-label="Open navigation"
+        aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="main-nav"
       >
@@ -43,7 +43,7 @@
 
       <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <a href="../index.html">Home</a>
-        <a href="./index.html" class="active">Day Calculator</a>
+        <a href="./index.html" class="active" aria-current="page">Day Calculator</a>
         <a href="../date-difference/index.html">Date Difference</a>
         <a href="../age-calculator/index.html">Age Calculator</a>
         <a href="../calendar/index.html">Calendar Explorer</a>
@@ -52,6 +52,7 @@
 
     </div>
   </header>
+
 
   <!-- HERO -->
   <section class="hero">
@@ -65,22 +66,26 @@
     </p>
   </section>
 
+
   <main>
 
     <!-- DATE CALCULATOR -->
     <section class="calculator" id="calculator-section">
 
       <div class="cw-card-head">
+
         <span class="cw-badge">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="4" width="18" height="18" rx="3"/>
             <path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
           </svg>
         </span>
+
         <div>
           <h2>Day Calculator</h2>
           <p>Choose any date and let ChronoWizard reveal its weekday.</p>
         </div>
+
       </div>
 
       <label for="date">Choose any date</label>
@@ -105,6 +110,7 @@
 
     </section>
 
+
     <!-- PREVIOUS AND NEXT WEEKLY OCCURRENCES -->
     <section class="occurrence-card" id="weekly-section">
 
@@ -123,9 +129,12 @@
 
         <div class="occurrence-item">
           <span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
             Previous
           </span>
+
           <strong id="previous-date">—</strong>
           <small id="previous-gap"></small>
         </div>
@@ -133,8 +142,11 @@
         <div class="occurrence-item">
           <span>
             Next
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
           </span>
+
           <strong id="next-date">—</strong>
           <small id="next-gap"></small>
         </div>
@@ -142,6 +154,7 @@
       </div>
 
     </section>
+
 
     <!-- SAME DATE, SAME WEEKDAY -->
     <section class="year-match-card" id="year-match-section">
@@ -160,30 +173,42 @@
       <div class="year-match-result cw-timeline">
 
         <div class="year-match-item cw-node">
+
           <span class="cw-node-label">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
             Last time
           </span>
+
           <strong id="year-match-previous">Choose a date first</strong>
           <small id="year-match-previous-years"></small>
+
         </div>
 
         <span class="cw-connector" aria-hidden="true"></span>
 
         <div class="year-match-item cw-node cw-node-current">
+
           <span class="cw-node-label">Your selected date</span>
           <strong id="year-match-original">Your selected date</strong>
+
         </div>
 
         <span class="cw-connector" aria-hidden="true"></span>
 
         <div class="year-match-item cw-node">
+
           <span class="cw-node-label">
             Next time
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
           </span>
+
           <strong id="year-match-next">Choose a date first</strong>
           <small id="year-match-years"></small>
+
         </div>
 
       </div>
@@ -192,11 +217,12 @@
 
   </main>
 
-  <!-- FOOTER -->
+
+  <!-- STANDARD FOOTER -->
   <footer class="site-footer">
 
     <a class="footer-brand" href="../index.html">
-      ✦ ChronoWizard
+      ChronoWizard
     </a>
 
     <p>
@@ -207,11 +233,14 @@
       Created by <strong>Mohammad Nofal</strong>
     </p>
 
-    <a class="back-to-top" href="#">↑ Back to the top</a>
+    <a class="back-to-top" href="#">
+      Back to the top ↑
+    </a>
 
   </footer>
 
-  <!-- THEME PICKER -->
+
+  <!-- STANDARD THEME PICKER -->
   <div class="theme-picker">
 
     <button
@@ -222,12 +251,22 @@
       aria-expanded="false"
       aria-controls="theme-menu"
     >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>
-        <circle cx="13.5" cy="6.5" r=".6" fill="currentColor"/>
-        <circle cx="17.5" cy="10.5" r=".6" fill="currentColor"/>
-        <circle cx="6.5" cy="12.5" r=".6" fill="currentColor"/>
-        <circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/>
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3c0-4.7-4-8.5-9-8.5Z"/>
+        <circle cx="7.5" cy="10" r="1"/>
+        <circle cx="10" cy="6.5" r="1"/>
+        <circle cx="15" cy="7" r="1"/>
+        <circle cx="17" cy="10.5" r="1"/>
       </svg>
     </button>
 
@@ -235,7 +274,7 @@
 
       <h3>Choose your vibe</h3>
 
-      <button class="theme-option active" type="button" data-theme="purple">
+      <button class="theme-option" type="button" data-theme="purple">
         <span class="swatch purple"></span>
         Purple Dream
       </button>
@@ -291,26 +330,34 @@
       </button>
 
     </div>
+
   </div>
 
+
+  <!-- SHARED JAVASCRIPT -->
   <script src="../script.js"></script>
+
 
   <!-- MOBILE NAVIGATION -->
   <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const mainNav = document.getElementById("main-nav");
+    (() => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const mainNav = document.getElementById("main-nav");
 
-    menuToggle.addEventListener("click", () => {
-      const isOpen = mainNav.classList.toggle("open");
+      if (!menuToggle || !mainNav) return;
 
-      menuToggle.setAttribute("aria-expanded", isOpen);
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-    });
+      menuToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("open");
+
+        menuToggle.setAttribute("aria-expanded", isOpen);
+
+        menuToggle.setAttribute(
+          "aria-label",
+          isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+      });
+    })();
   </script>
 
 </body>
 </html>
-
