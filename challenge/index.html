@@ -245,11 +245,11 @@
 
 <body>
 
-  <!-- HEADER + NAVIGATION -->
+  <!-- STANDARD CHRONOWIZARD HEADER -->
   <header class="site-header">
     <div class="header-container">
 
-      <a href="../index.html" class="logo">
+      <a href="../index.html" class="logo" aria-label="ChronoWizard home">
         <img
           src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
           alt="ChronoWizard Logo"
@@ -257,18 +257,35 @@
         <span>ChronoWizard</span>
       </a>
 
-      <nav class="main-nav" aria-label="Main navigation">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <a href="../index.html">Home</a>
         <a href="../calculator/index.html">Day Calculator</a>
         <a href="../date-difference/index.html">Date Difference</a>
         <a href="../age-calculator/index.html">Age Calculator</a>
         <a href="../calendar/index.html">Calendar Explorer</a>
-        <a href="./index.html" class="active">Date Challenge</a>
+        <a href="./index.html" class="active" aria-current="page">Date Challenge</a>
       </nav>
 
     </div>
   </header>
 
+
+  <!-- MAIN CONTENT -->
   <main class="challenge-page">
 
     <!-- INTRO -->
@@ -283,10 +300,11 @@
       </p>
     </section>
 
-    <!-- LESSON -->
+
+    <!-- DOOMSDAY ALGORITHM LESSON -->
     <section class="lesson-card">
 
-      <h2>🧙‍♂️ Lesson 1: The Doomsday Algorithm</h2>
+      <h2>Lesson 1: The Doomsday Algorithm</h2>
 
       <p>
         The Doomsday Algorithm is a mental calculation method
@@ -435,11 +453,14 @@
 
     </section>
 
+
     <!-- SCORE -->
     <section class="score-card">
-      <h2>🏆 Your Progress</h2>
+
+      <h2>Your Progress</h2>
 
       <div class="score-grid">
+
         <div class="score-item">
           <strong id="score-correct">0</strong>
           <span>Correct</span>
@@ -454,19 +475,22 @@
           <strong id="score-streak">0</strong>
           <span>Best streak</span>
         </div>
+
       </div>
 
       <p id="score-accuracy" class="challenge-status">
         Accuracy: 0%
       </p>
+
     </section>
+
 
     <!-- PRACTICE -->
     <section class="practice-card" id="practice">
 
       <p class="eyebrow">YOUR FIRST CHALLENGE</p>
 
-      <h2>🔮 Guess the Weekday</h2>
+      <h2>Guess the Weekday</h2>
 
       <p>
         Use the Doomsday Algorithm to calculate the weekday
@@ -478,10 +502,12 @@
       </div>
 
       <div class="answer-grid" id="answer-grid">
+
         <button class="answer-option" type="button">Sunday</button>
         <button class="answer-option" type="button">Monday</button>
         <button class="answer-option" type="button">Tuesday</button>
         <button class="answer-option" type="button">Wednesday</button>
+
       </div>
 
       <div id="feedback" class="feedback-box" aria-live="polite"></div>
@@ -490,23 +516,33 @@
         Choose your answer to begin.
       </p>
 
-      <button id="next-challenge" class="challenge-button" type="button" disabled>
+      <button
+        id="next-challenge"
+        class="challenge-button"
+        type="button"
+        disabled
+      >
         Next Challenge →
       </button>
 
-      <button id="restart-challenge" class="challenge-button" type="button">
-        ↻ Reset Score
+      <button
+        id="restart-challenge"
+        class="challenge-button"
+        type="button"
+      >
+        Reset Score
       </button>
 
     </section>
 
   </main>
 
-  <!-- FOOTER -->
+
+  <!-- STANDARD FOOTER -->
   <footer class="site-footer">
 
     <a class="footer-brand" href="../index.html">
-      ✦ ChronoWizard
+      ChronoWizard
     </a>
 
     <p>
@@ -514,14 +550,17 @@
     </p>
 
     <p class="creator-credit">
-      Created by <strong>Mohammad Nofal</strong> 🧙‍♂️
+      Created by <strong>Mohammad Nofal</strong>
     </p>
 
-    <a class="back-to-top" href="#">↑ Back to the top</a>
+    <a class="back-to-top" href="#">
+      Back to the top ↑
+    </a>
 
   </footer>
 
-  <!-- THEME PICKER -->
+
+  <!-- STANDARD THEME PICKER -->
   <div class="theme-picker">
 
     <button
@@ -532,14 +571,30 @@
       aria-expanded="false"
       aria-controls="theme-menu"
     >
-      🎨
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3c0-4.7-4-8.5-9-8.5Z"/>
+        <circle cx="7.5" cy="10" r="1"/>
+        <circle cx="10" cy="6.5" r="1"/>
+        <circle cx="15" cy="7" r="1"/>
+        <circle cx="17" cy="10.5" r="1"/>
+      </svg>
     </button>
 
     <div id="theme-menu" class="theme-menu" hidden>
 
       <h3>Choose your vibe</h3>
 
-      <button class="theme-option active" type="button" data-theme="purple">
+      <button class="theme-option" type="button" data-theme="purple">
         <span class="swatch purple"></span>
         Purple Dream
       </button>
@@ -595,306 +650,333 @@
       </button>
 
     </div>
+
   </div>
 
+
+  <!-- SHARED JAVASCRIPT -->
   <script src="../script.js"></script>
 
+
+  <!-- DATE CHALLENGE LOGIC -->
   <script>
     (() => {
-    // DATE CHALLENGE LOGIC
 
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
+      const weekdays = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ];
 
-    const weekdayCodes = {
-      1900: 3,
-      2000: 2,
-      2100: 0
-    };
+      const weekdayCodes = {
+        1900: 3,
+        2000: 2,
+        2100: 0
+      };
 
-    const monthAnchors = {
-      0: 3,
-      1: 28,
-      2: 14,
-      3: 4,
-      4: 9,
-      5: 6,
-      6: 11,
-      7: 8,
-      8: 5,
-      9: 10,
-      10: 7,
-      11: 12
-    };
+      const monthAnchors = {
+        0: 3,
+        1: 28,
+        2: 14,
+        3: 4,
+        4: 9,
+        5: 6,
+        6: 11,
+        7: 8,
+        8: 5,
+        9: 10,
+        10: 7,
+        11: 12
+      };
 
-    function isLeapYear(year) {
-      return year % 400 === 0 ||
-        (year % 4 === 0 && year % 100 !== 0);
-    }
-
-    function getDoomsday(year) {
-      const century = Math.floor(year / 100) * 100;
-      const lastTwoDigits = year % 100;
-
-      const centuryAnchor = weekdayCodes[century];
-
-      if (centuryAnchor === undefined) {
-        throw new Error("Year outside supported range.");
+      function isLeapYear(year) {
+        return year % 400 === 0 ||
+          (year % 4 === 0 && year % 100 !== 0);
       }
 
-      const a = Math.floor(lastTwoDigits / 12);
-      const b = lastTwoDigits % 12;
-      const c = Math.floor(b / 4);
+      function getDoomsday(year) {
+        const century = Math.floor(year / 100) * 100;
+        const lastTwoDigits = year % 100;
 
-      return (centuryAnchor + a + b + c) % 7;
-    }
+        const centuryAnchor = weekdayCodes[century];
 
-    function getMonthlyAnchor(year, month) {
-      if (month === 0) {
-        return isLeapYear(year) ? 4 : 3;
-      }
-
-      if (month === 1) {
-        return isLeapYear(year) ? 29 : 28;
-      }
-
-      return monthAnchors[month];
-    }
-
-    function calculateWeekday(year, month, day) {
-      const doomsday = getDoomsday(year);
-      const anchorDay = getMonthlyAnchor(year, month);
-
-      return (
-        doomsday + (day - anchorDay) % 7 + 7
-      ) % 7;
-    }
-
-    function getCalculationExplanation(year, month, day) {
-      const century = Math.floor(year / 100) * 100;
-      const y = year % 100;
-
-      const a = Math.floor(y / 12);
-      const b = y % 12;
-      const c = Math.floor(b / 4);
-
-      const anchor = weekdayCodes[century];
-      const doomsday = getDoomsday(year);
-      const monthlyAnchor = getMonthlyAnchor(year, month);
-      const difference = day - monthlyAnchor;
-
-      const anchorDate = new Date(year, month, monthlyAnchor);
-
-      const anchorName = weekdays[doomsday];
-      const result = calculateWeekday(year, month, day);
-
-      let movement;
-
-      if (difference > 0) {
-        movement = `${difference} days after`;
-      } else if (difference < 0) {
-        movement = `${Math.abs(difference)} days before`;
-      } else {
-        movement = "the same day as";
-      }
-
-      return `
-        <h3>How to solve it</h3>
-
-        <p><strong>1. Century anchor:</strong>
-        ${century}s = ${weekdays[anchor]} (${anchor}).</p>
-
-        <p><strong>2. Year calculation:</strong>
-        Y = ${y}<br>
-        A = ${a}, B = ${b}, C = ${c}.</p>
-
-        <p><strong>3. Find the year's Doomsday:</strong>
-        (${anchor} + ${a} + ${b} + ${c}) modulo 7
-        = ${anchor + a + b + c} modulo 7
-        = ${anchorName}.</p>
-
-        <p><strong>4. Monthly anchor:</strong>
-        ${monthNames[month]} ${monthlyAnchor}, ${year},
-        was ${anchorName}.</p>
-
-        <p><strong>5. Count the difference:</strong>
-        ${day} is ${movement} ${monthNames[month]}
-        ${monthlyAnchor}.</p>
-
-        <p><strong>Final answer: ${weekdays[result]}.</strong></p>
-      `;
-    }
-
-    const monthNames = [
-      "January", "February", "March", "April",
-      "May", "June", "July", "August",
-      "September", "October", "November", "December"
-    ];
-
-    let currentDate = null;
-    let answered = false;
-
-    let correctCount = 0;
-    let totalAttempts = 0;
-    let currentStreak = 0;
-    let bestStreak = 0;
-
-    const dateDisplay = document.getElementById("challenge-date");
-    const answerGrid = document.getElementById("answer-grid");
-    const feedback = document.getElementById("feedback");
-    const status = document.getElementById("challenge-status");
-    const nextButton = document.getElementById("next-challenge");
-    const restartButton = document.getElementById("restart-challenge");
-
-    function randomChallengeDate() {
-      const year = 1900 + Math.floor(Math.random() * 201);
-      const month = Math.floor(Math.random() * 12);
-      const day = 1 + Math.floor(
-        Math.random() * new Date(year, month + 1, 0).getDate()
-      );
-
-      return { year, month, day };
-    }
-
-    function formatDate(date) {
-      return `${monthNames[date.month]} ${date.day}, ${date.year}`;
-    }
-
-    function createChallenge() {
-      currentDate = randomChallengeDate();
-      answered = false;
-
-      dateDisplay.textContent = formatDate(currentDate);
-
-      feedback.innerHTML = "";
-      feedback.classList.remove("visible");
-
-      status.textContent = "Choose your answer to begin.";
-      nextButton.disabled = true;
-
-      const correctAnswer = calculateWeekday(
-        currentDate.year,
-        currentDate.month,
-        currentDate.day
-      );
-
-      let choices = [correctAnswer];
-
-      while (choices.length < 4) {
-        const candidate = Math.floor(Math.random() * 7);
-
-        if (!choices.includes(candidate)) {
-          choices.push(candidate);
+        if (centuryAnchor === undefined) {
+          throw new Error("Year outside supported range.");
         }
+
+        const a = Math.floor(lastTwoDigits / 12);
+        const b = lastTwoDigits % 12;
+        const c = Math.floor(b / 4);
+
+        return (centuryAnchor + a + b + c) % 7;
       }
 
-      // Shuffle choices.
-      choices.sort(() => Math.random() - 0.5);
-
-      answerGrid.innerHTML = "";
-
-      choices.forEach(day => {
-        const button = document.createElement("button");
-
-        button.type = "button";
-        button.className = "answer-option";
-        button.textContent = weekdays[day];
-
-        button.addEventListener("click", () => {
-          checkAnswer(day, correctAnswer, button);
-        });
-
-        answerGrid.appendChild(button);
-      });
-    }
-
-    function checkAnswer(selected, correct, selectedButton) {
-      if (answered) return;
-
-      answered = true;
-      totalAttempts++;
-
-      const buttons = answerGrid.querySelectorAll("button");
-
-      buttons.forEach(button => {
-        button.disabled = true;
-
-        if (button.textContent === weekdays[correct]) {
-          button.classList.add("correct");
+      function getMonthlyAnchor(year, month) {
+        if (month === 0) {
+          return isLeapYear(year) ? 4 : 3;
         }
-      });
 
-      if (selected === correct) {
-        correctCount++;
-        currentStreak++;
+        if (month === 1) {
+          return isLeapYear(year) ? 29 : 28;
+        }
 
-        bestStreak = Math.max(bestStreak, currentStreak);
-
-        status.textContent = "✨ Correct! Excellent work!";
-      } else {
-        currentStreak = 0;
-        selectedButton.classList.add("wrong");
-
-        status.textContent =
-          `Not quite! The correct answer is ${weekdays[correct]}.`;
+        return monthAnchors[month];
       }
 
-      feedback.innerHTML =
-        getCalculationExplanation(
+      function calculateWeekday(year, month, day) {
+        const doomsday = getDoomsday(year);
+        const anchorDay = getMonthlyAnchor(year, month);
+
+        return (
+          doomsday + (day - anchorDay) % 7 + 7
+        ) % 7;
+      }
+
+      function getCalculationExplanation(year, month, day) {
+        const century = Math.floor(year / 100) * 100;
+        const y = year % 100;
+
+        const a = Math.floor(y / 12);
+        const b = y % 12;
+        const c = Math.floor(b / 4);
+
+        const anchor = weekdayCodes[century];
+        const doomsday = getDoomsday(year);
+        const monthlyAnchor = getMonthlyAnchor(year, month);
+        const difference = day - monthlyAnchor;
+
+        const anchorDate = new Date(year, month, monthlyAnchor);
+
+        const anchorName = weekdays[doomsday];
+        const result = calculateWeekday(year, month, day);
+
+        let movement;
+
+        if (difference > 0) {
+          movement = `${difference} days after`;
+        } else if (difference < 0) {
+          movement = `${Math.abs(difference)} days before`;
+        } else {
+          movement = "the same day as";
+        }
+
+        return `
+          <h3>How to solve it</h3>
+
+          <p><strong>1. Century anchor:</strong>
+          ${century}s = ${weekdays[anchor]} (${anchor}).</p>
+
+          <p><strong>2. Year calculation:</strong>
+          Y = ${y}<br>
+          A = ${a}, B = ${b}, C = ${c}.</p>
+
+          <p><strong>3. Find the year's Doomsday:</strong>
+          (${anchor} + ${a} + ${b} + ${c}) modulo 7
+          = ${anchor + a + b + c} modulo 7
+          = ${anchorName}.</p>
+
+          <p><strong>4. Monthly anchor:</strong>
+          ${monthNames[month]} ${monthlyAnchor}, ${year},
+          was ${anchorName}.</p>
+
+          <p><strong>5. Count the difference:</strong>
+          ${day} is ${movement} ${monthNames[month]}
+          ${monthlyAnchor}.</p>
+
+          <p><strong>Final answer: ${weekdays[result]}.</strong></p>
+        `;
+      }
+
+      const monthNames = [
+        "January", "February", "March", "April",
+        "May", "June", "July", "August",
+        "September", "October", "November", "December"
+      ];
+
+      let currentDate = null;
+      let answered = false;
+
+      let correctCount = 0;
+      let totalAttempts = 0;
+      let currentStreak = 0;
+      let bestStreak = 0;
+
+      const dateDisplay = document.getElementById("challenge-date");
+      const answerGrid = document.getElementById("answer-grid");
+      const feedback = document.getElementById("feedback");
+      const status = document.getElementById("challenge-status");
+      const nextButton = document.getElementById("next-challenge");
+      const restartButton = document.getElementById("restart-challenge");
+
+      function randomChallengeDate() {
+        const year = 1900 + Math.floor(Math.random() * 201);
+        const month = Math.floor(Math.random() * 12);
+        const day = 1 + Math.floor(
+          Math.random() * new Date(year, month + 1, 0).getDate()
+        );
+
+        return { year, month, day };
+      }
+
+      function formatDate(date) {
+        return `${monthNames[date.month]} ${date.day}, ${date.year}`;
+      }
+
+      function createChallenge() {
+        currentDate = randomChallengeDate();
+        answered = false;
+
+        dateDisplay.textContent = formatDate(currentDate);
+
+        feedback.innerHTML = "";
+        feedback.classList.remove("visible");
+
+        status.textContent = "Choose your answer to begin.";
+        nextButton.disabled = true;
+
+        const correctAnswer = calculateWeekday(
           currentDate.year,
           currentDate.month,
           currentDate.day
         );
 
-      feedback.classList.add("visible");
+        let choices = [correctAnswer];
 
-      nextButton.disabled = false;
+        while (choices.length < 4) {
+          const candidate = Math.floor(Math.random() * 7);
 
-      updateScore();
-    }
+          if (!choices.includes(candidate)) {
+            choices.push(candidate);
+          }
+        }
 
-    function updateScore() {
-      document.getElementById("score-correct").textContent =
-        correctCount;
+        // Shuffle choices.
+        choices.sort(() => Math.random() - 0.5);
 
-      document.getElementById("score-total").textContent =
-        totalAttempts;
+        answerGrid.innerHTML = "";
 
-      document.getElementById("score-streak").textContent =
-        bestStreak;
+        choices.forEach(day => {
+          const button = document.createElement("button");
 
-      const accuracy = totalAttempts === 0
-        ? 0
-        : Math.round((correctCount / totalAttempts) * 100);
+          button.type = "button";
+          button.className = "answer-option";
+          button.textContent = weekdays[day];
 
-      document.getElementById("score-accuracy").textContent =
-        `Accuracy: ${accuracy}% | Current streak: ${currentStreak}`;
-    }
+          button.addEventListener("click", () => {
+            checkAnswer(day, correctAnswer, button);
+          });
 
-    nextButton.addEventListener("click", createChallenge);
+          answerGrid.appendChild(button);
+        });
+      }
 
-    restartButton.addEventListener("click", () => {
-      correctCount = 0;
-      totalAttempts = 0;
-      currentStreak = 0;
-      bestStreak = 0;
+      function checkAnswer(selected, correct, selectedButton) {
+        if (answered) return;
 
+        answered = true;
+        totalAttempts++;
+
+        const buttons = answerGrid.querySelectorAll("button");
+
+        buttons.forEach(button => {
+          button.disabled = true;
+
+          if (button.textContent === weekdays[correct]) {
+            button.classList.add("correct");
+          }
+        });
+
+        if (selected === correct) {
+          correctCount++;
+          currentStreak++;
+
+          bestStreak = Math.max(bestStreak, currentStreak);
+
+          status.textContent = "Correct! Excellent work!";
+        } else {
+          currentStreak = 0;
+          selectedButton.classList.add("wrong");
+
+          status.textContent =
+            `Not quite! The correct answer is ${weekdays[correct]}.`;
+        }
+
+        feedback.innerHTML =
+          getCalculationExplanation(
+            currentDate.year,
+            currentDate.month,
+            currentDate.day
+          );
+
+        feedback.classList.add("visible");
+
+        nextButton.disabled = false;
+
+        updateScore();
+      }
+
+      function updateScore() {
+        document.getElementById("score-correct").textContent =
+          correctCount;
+
+        document.getElementById("score-total").textContent =
+          totalAttempts;
+
+        document.getElementById("score-streak").textContent =
+          bestStreak;
+
+        const accuracy = totalAttempts === 0
+          ? 0
+          : Math.round((correctCount / totalAttempts) * 100);
+
+        document.getElementById("score-accuracy").textContent =
+          `Accuracy: ${accuracy}% | Current streak: ${currentStreak}`;
+      }
+
+      nextButton.addEventListener("click", createChallenge);
+
+      restartButton.addEventListener("click", () => {
+        correctCount = 0;
+        totalAttempts = 0;
+        currentStreak = 0;
+        bestStreak = 0;
+
+        updateScore();
+        createChallenge();
+
+        status.textContent = "Score reset! Your next challenge is ready.";
+      });
+
+      // Start the first challenge.
       updateScore();
       createChallenge();
 
-      status.textContent = "Score reset! Your next challenge is ready.";
-    });
+    })();
+  </script>
 
-    // Start the first challenge.
-    updateScore();
-    createChallenge();
+
+  <!-- MOBILE NAVIGATION -->
+  <script>
+    (() => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const mainNav = document.getElementById("main-nav");
+
+      if (!menuToggle || !mainNav) return;
+
+      menuToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("open");
+
+        menuToggle.setAttribute("aria-expanded", isOpen);
+
+        menuToggle.setAttribute(
+          "aria-label",
+          isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+      });
     })();
   </script>
 
