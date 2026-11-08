@@ -2371,13 +2371,7 @@ main {
 
 @media (max-width: 900px) {
   /* Keep logo left and hamburger right on one row */
-  .site-header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  .site-header 
 
   .site-header button.menu-toggle {
     margin-left: auto;
