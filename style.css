@@ -1242,16 +1242,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header */
-.site-header {
-  position: relative;
-  width: 100%;
-  padding: 18px 24px;
-  margin: 0;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
-}
-
 .header-container {
   width: 100%;
   max-width: 1150px;
