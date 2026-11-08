@@ -497,25 +497,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* 2. Subtle magical background glow */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 15% 10%,
-      color-mix(in srgb, var(--accent) 13%, transparent),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse at 90% 85%,
-      color-mix(in srgb, var(--accent) 9%, transparent),
-      transparent 50%
-    );
-}
 
 /* 3. Main content */
 .app {
@@ -1292,26 +1273,6 @@ body {
   background: var(--page);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
-}
-
-/* Background atmosphere */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 15% 10%,
-      color-mix(in srgb, var(--accent) 13%, transparent),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse at 90% 85%,
-      color-mix(in srgb, var(--accent) 9%, transparent),
-      transparent 50%
-    );
 }
 
 /* Header */
