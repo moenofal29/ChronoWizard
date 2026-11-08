@@ -2348,13 +2348,6 @@ main {
 /* Header: dark translucent glass instead of the theme-tinted panel color.
    z-index keeps the header (and the open mobile menu) above the page content,
    because backdrop-filter makes the header its own stacking layer. */
-.site-header {
-  z-index: 50;
-  background: rgba(8, 11, 26, 0.72);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(139, 108, 255, 0.28);
-}
 
 /* Hamburger: beat the generic `button:not(...)` accent background */
 .site-header button.menu-toggle {
