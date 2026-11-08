@@ -2377,6 +2377,13 @@ main {
     margin-left: auto;
   }
 
+ /* Mobile panel stays near-opaque so page text never shows through
+     (the header's own blur prevents a nested blur from working) */
+  .main-nav.open {
+    background: rgba(8, 11, 26, 0.97);
+    border-color: rgba(139, 108, 255, 0.35);
+  }
+}
 
 /* Floating theme button: dark glass rounded square.
    Icon and border follow the active theme's accent
