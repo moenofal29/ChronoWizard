@@ -947,11 +947,6 @@ input[type="date"]:focus {
 
 /* Mobile-friendly layout */
 @media (max-width: 600px) {
-  .site-header {
-    padding: 14px 16px;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
 
   .brand {
     gap: 8px;
