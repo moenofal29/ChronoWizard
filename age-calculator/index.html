@@ -15,11 +15,11 @@
 
 <body>
 
-  <!-- HEADER -->
+  <!-- STANDARD CHRONOWIZARD HEADER -->
   <header class="site-header">
     <div class="header-container">
 
-      <a href="../index.html" class="logo">
+      <a href="../index.html" class="logo" aria-label="ChronoWizard home">
         <img
           src="https://i.postimg.cc/wBtN96Rg/Magical-Wizard-Hat-Calendar-Icon.png"
           alt="ChronoWizard Logo"
@@ -27,11 +27,26 @@
         <span>ChronoWizard</span>
       </a>
 
-      <nav class="main-nav">
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <a href="../index.html">Home</a>
         <a href="../calculator/index.html">Day Calculator</a>
         <a href="../date-difference/index.html">Date Difference</a>
-        <a href="./index.html" class="active">Age Calculator</a>
+        <a href="./index.html" class="active" aria-current="page">Age Calculator</a>
         <a href="../calendar/index.html">Calendar Explorer</a>
         <a href="../challenge/index.html">Date Challenge</a>
       </nav>
@@ -39,9 +54,11 @@
     </div>
   </header>
 
+
   <!-- MAIN CONTENT -->
   <main class="page-container">
 
+    <!-- HERO -->
     <section class="hero">
       <p class="eyebrow">DISCOVER YOUR STORY</p>
 
@@ -53,11 +70,12 @@
       </p>
     </section>
 
+
     <!-- AGE CALCULATOR -->
     <section class="calculator-card">
 
       <div class="calculator-heading">
-        <h2>🎂 Discover Your Age</h2>
+        <h2>Discover Your Age</h2>
 
         <p>
           Enter your date of birth to reveal your
@@ -82,7 +100,7 @@
         id="calculate-age"
         class="calculate-button"
       >
-        ✨ Calculate My Age
+        Calculate My Age
       </button>
 
       <div
@@ -93,82 +111,187 @@
 
     </section>
 
-    <!-- INFORMATION -->
+
+    <!-- INFORMATION SECTION -->
     <section class="info-section">
+
       <h2>What Will You Discover?</h2>
 
       <div class="feature-grid">
 
         <div class="feature-card">
-          <h3>📅 Exact Age</h3>
+          <h3>Exact Age</h3>
           <p>
             Find out your age in years, months, and days.
           </p>
         </div>
 
         <div class="feature-card">
-          <h3>⏳ Days Alive</h3>
+          <h3>Days Alive</h3>
           <p>
             Discover how many total days you've been alive.
           </p>
         </div>
 
         <div class="feature-card">
-          <h3>🎂 Next Birthday</h3>
+          <h3>Next Birthday</h3>
           <p>
             See how many days remain until your next birthday.
           </p>
         </div>
 
         <div class="feature-card">
-          <h3>📆 Weeks Lived</h3>
+          <h3>Weeks Lived</h3>
           <p>
             See how many complete weeks you've experienced.
           </p>
         </div>
 
       </div>
+
     </section>
 
   </main>
 
-  <!-- FOOTER -->
+
+  <!-- STANDARD FOOTER -->
   <footer class="site-footer">
-    <p>© 2026 ChronoWizard. Every date has a story. ✨</p>
+
+    <a class="footer-brand" href="../index.html">
+      ChronoWizard
+    </a>
+
+    <p>
+      Every date has a story. Every day has a place in time.
+    </p>
+
+    <p class="creator-credit">
+      Created by <strong>Mohammad Nofal</strong>
+    </p>
+
+    <a class="back-to-top" href="#">Back to the top ↑</a>
+
   </footer>
 
-  <!-- THEME PICKER -->
+
+  <!-- STANDARD THEME PICKER -->
   <div class="theme-picker">
 
     <button
-      type="button"
       id="theme-toggle"
+      class="theme-toggle"
+      type="button"
+      aria-label="Choose website colors"
       aria-expanded="false"
       aria-controls="theme-menu"
     >
-      🎨 Themes
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18a3 3 0 0 0 3-3c0-4.7-4-8.5-9-8.5Z"/>
+        <circle cx="7.5" cy="10" r="1"/>
+        <circle cx="10" cy="6.5" r="1"/>
+        <circle cx="15" cy="7" r="1"/>
+        <circle cx="17" cy="10.5" r="1"/>
+      </svg>
     </button>
 
-    <div id="theme-menu" hidden>
+    <div id="theme-menu" class="theme-menu" hidden>
 
-      <button class="theme-option" data-theme="purple">Purple</button>
-      <button class="theme-option" data-theme="ocean">Ocean</button>
-      <button class="theme-option" data-theme="forest">Forest</button>
-      <button class="theme-option" data-theme="sunset">Sunset</button>
-      <button class="theme-option" data-theme="rose">Rose</button>
-      <button class="theme-option" data-theme="red">Red</button>
-      <button class="theme-option" data-theme="gold">Gold</button>
-      <button class="theme-option" data-theme="ice">Ice</button>
-      <button class="theme-option" data-theme="midnight">Midnight</button>
-      <button class="theme-option" data-theme="white">White</button>
-      <button class="theme-option" data-theme="lavender">Lavender</button>
+      <h3>Choose your vibe</h3>
+
+      <button class="theme-option" type="button" data-theme="purple">
+        <span class="swatch purple"></span>
+        Purple Dream
+      </button>
+
+      <button class="theme-option" type="button" data-theme="ocean">
+        <span class="swatch ocean"></span>
+        Ocean Blue
+      </button>
+
+      <button class="theme-option" type="button" data-theme="forest">
+        <span class="swatch forest"></span>
+        Forest Green
+      </button>
+
+      <button class="theme-option" type="button" data-theme="sunset">
+        <span class="swatch sunset"></span>
+        Sunset Orange
+      </button>
+
+      <button class="theme-option" type="button" data-theme="rose">
+        <span class="swatch rose"></span>
+        Rose Pink
+      </button>
+
+      <button class="theme-option" type="button" data-theme="red">
+        <span class="swatch red"></span>
+        Cherry Red
+      </button>
+
+      <button class="theme-option" type="button" data-theme="gold">
+        <span class="swatch gold"></span>
+        Golden Hour
+      </button>
+
+      <button class="theme-option" type="button" data-theme="ice">
+        <span class="swatch ice"></span>
+        Ice Blue
+      </button>
+
+      <button class="theme-option" type="button" data-theme="midnight">
+        <span class="swatch midnight"></span>
+        Midnight Black
+      </button>
+
+      <button class="theme-option" type="button" data-theme="white">
+        <span class="swatch white"></span>
+        Glacier White
+      </button>
+
+      <button class="theme-option" type="button" data-theme="lavender">
+        <span class="swatch lavender"></span>
+        Soft Lavender
+      </button>
 
     </div>
 
   </div>
 
-  <!-- SHARED JAVASCRIPT -->
+
+  <!-- SHARED SITE JAVASCRIPT -->
   <script src="../script.js"></script>
+
+
+  <!-- MOBILE NAVIGATION -->
+  <script>
+    (() => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const mainNav = document.getElementById("main-nav");
+
+      if (!menuToggle || !mainNav) return;
+
+      menuToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("open");
+
+        menuToggle.setAttribute("aria-expanded", isOpen);
+
+        menuToggle.setAttribute(
+          "aria-label",
+          isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+      });
+    })();
+  </script>
 
 </body>
 </html>
