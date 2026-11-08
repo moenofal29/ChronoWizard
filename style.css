@@ -2806,19 +2806,6 @@ body.page-day #year-match-years {
   );
 }
 
-
-/* Inner-page header on phones and tablets: logo left, hamburger right,
-   on one row (the older 850px rule stacked them in a column). */
-@media (max-width: 900px) {
-  .site-header .header-container {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-  }
-}
-
-
 /* =========================================
    CHRONOWIZARD — CONSOLIDATED HEADER
    Phase 3, Step 1: Header structure
