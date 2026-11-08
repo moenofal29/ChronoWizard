@@ -780,17 +780,6 @@ input[type="date"]:focus {
 
 /* CHRONOWIZARD BRAND IDENTITY */
 
-.site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-bottom: 20px;
-  margin-bottom: 32px;
-  border-bottom: 1px solid var(--border);
-}
-
 .brand {
   display: inline-flex;
   align-items: center;
