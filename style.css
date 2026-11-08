@@ -2,6 +2,17 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: white;
+  background: #101326;
+}
+
 .app {
   width: 100%;
   max-width: 540px;
@@ -474,6 +485,9 @@ h1 span {
 ======================================== */
 
 /* 1. Smoother sizing everywhere */
+* {
+  box-sizing: border-box;
+}
 
 html {
   scroll-behavior: smooth;
@@ -486,6 +500,25 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* 2. Subtle magical background glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 50%
+    );
+}
 
 /* 3. Main content */
 .app {
@@ -780,6 +813,17 @@ input[type="date"]:focus {
 
 /* CHRONOWIZARD BRAND IDENTITY */
 
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -876,6 +920,12 @@ input[type="date"]:focus {
 }
 
 @media (max-width: 480px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
 
   .brand-tag {
     margin-left: 46px;
@@ -947,6 +997,11 @@ input[type="date"]:focus {
 
 /* Mobile-friendly layout */
 @media (max-width: 600px) {
+  .site-header {
+    padding: 14px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
   .brand {
     gap: 8px;
@@ -1229,6 +1284,13 @@ input[type="date"]:focus {
 ========================================= */
 
 /* Global layout */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   display: block !important;
@@ -1240,6 +1302,36 @@ body {
   background: var(--page);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Background atmosphere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 50%
+    );
+}
+
+/* Header */
+.site-header {
+  position: relative;
+  width: 100%;
+  padding: 18px 24px;
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
 }
 
 .header-container {
@@ -2348,6 +2440,13 @@ main {
 /* Header: dark translucent glass instead of the theme-tinted panel color.
    z-index keeps the header (and the open mobile menu) above the page content,
    because backdrop-filter makes the header its own stacking layer. */
+.site-header {
+  z-index: 50;
+  background: rgba(8, 11, 26, 0.72);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(139, 108, 255, 0.28);
+}
 
 /* Hamburger: beat the generic `button:not(...)` accent background */
 .site-header button.menu-toggle {
@@ -2371,13 +2470,19 @@ main {
 
 @media (max-width: 900px) {
   /* Keep logo left and hamburger right on one row */
-  .site-header 
+  .site-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 
   .site-header button.menu-toggle {
     margin-left: auto;
   }
 
- /* Mobile panel stays near-opaque so page text never shows through
+  /* Mobile panel stays near-opaque so page text never shows through
      (the header's own blur prevents a nested blur from working) */
   .main-nav.open {
     background: rgba(8, 11, 26, 0.97);
@@ -2761,140 +2866,14 @@ body.page-day #year-match-years {
   );
 }
 
-/* =========================================
-   CHRONOWIZARD — CONSOLIDATED HEADER
-   Phase 3, Step 1: Header structure
-========================================= */
 
-.site-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-
-  position: relative;
-  z-index: 50;
-
-  width: 100%;
-  margin: 0;
-  padding: 18px 24px;
-
-  border-bottom: 1px solid rgba(139, 108, 255, 0.28);
-
-  background: rgba(8, 11, 26, 0.72);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-}
-
-/* Shared inner-page header container */
-.site-header .header-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  gap: 28px;
-
-  width: 100%;
-  max-width: 1150px;
-  margin: 0 auto;
-}
-
-
-/* =========================================
-   CHRONOWIZARD — CONSOLIDATED NAVIGATION
-   Phase 3, Step 2
-========================================= */
-
-/* Desktop navigation */
-.site-header .main-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 8px;
-
-  width: auto;
-  margin: 0;
-}
-
-.site-header .main-nav a {
-  display: inline-flex;
-  align-items: center;
-
-  padding: 10px 12px;
-  border-radius: 10px;
-
-  color: rgba(233, 236, 255, 0.78);
-  text-decoration: none;
-  transition: color 0.25s ease, background 0.25s ease;
-}
-
-.site-header .main-nav a:hover,
-.site-header .main-nav a.active {
-  color: #62C8FF;
-  background: rgba(139, 108, 255, 0.12);
-}
-
-/* Desktop: hide hamburger */
-.site-header .menu-toggle {
-  display: none;
-}
-
-/* Mobile navigation */
+/* Inner-page header on phones and tablets: logo left, hamburger right,
+   on one row (the older 850px rule stacked them in a column). */
 @media (max-width: 900px) {
-
-  .site-header .menu-toggle {
-    display: inline-flex;
-    flex-shrink: 0;
+  .site-header .header-container {
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-  }
-
-  .site-header .main-nav {
-    display: none;
-  }
-
-  .site-header .main-nav.open {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: nowrap;
-    gap: 8px;
-
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 100;
-
-    width: auto;
-    margin: 0;
-    padding: 16px;
-
-    background: rgba(8, 11, 26, 0.97);
-    border: 1px solid rgba(139, 108, 255, 0.35);
-    border-radius: 0 0 18px 18px;
-
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
-
-    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.35);
-  }
-
-  .site-header .main-nav a {
-    display: flex;
-    width: 100%;
-    padding: 12px;
-    color: #E9ECFF;
-  }
-
-  .site-header .main-nav a:hover,
-  .site-header .main-nav a.active {
-    color: #62C8FF;
-    background: rgba(139, 108, 255, 0.16);
   }
 }
