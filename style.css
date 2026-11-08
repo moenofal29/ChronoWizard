@@ -485,9 +485,6 @@ h1 span {
 ======================================== */
 
 /* 1. Smoother sizing everywhere */
-* {
-  box-sizing: border-box;
-}
 
 html {
   scroll-behavior: smooth;
@@ -1284,13 +1281,6 @@ input[type="date"]:focus {
 ========================================= */
 
 /* Global layout */
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
 
 body {
   display: block !important;
