@@ -1,0 +1,2879 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: white;
+  background: #101326;
+}
+
+.app {
+  width: 100%;
+  max-width: 540px;
+  text-align: center;
+}
+
+.eyebrow {
+  color: #a99aff;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(32px, 7vw, 48px);
+  margin: 18px 0 10px;
+}
+
+h1 span {
+  color: #a99aff;
+}
+
+.subtitle {
+  color: #b6bad0;
+  margin-bottom: 32px;
+}
+
+.calculator {
+  background: #1c2038;
+  border: 1px solid #343956;
+  border-radius: 22px;
+  padding: 26px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #d9dbeb;
+}
+
+input, button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+input {
+  background: #101326;
+  border: 1px solid #454b6d;
+  color: white;
+}
+
+button {
+  margin-top: 16px;
+  border: none;
+  background: #9b87ff;
+  color: #17132b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b5a7ff;
+}
+
+#result {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #272c49;
+  color: #d8d3ff;
+  text-align: center;
+}
+
+.footer {
+  margin-top: 26px;
+  color: #858ba9;
+  font-size: 13px;
+}
+
+/* Theme colors */
+:root,
+body[data-theme="purple"] {
+  --page: #101326;
+  --panel: #1c2038;
+  --card: #272c49;
+  --border: #343956;
+  --accent: #9b87ff;
+  --text: #ffffff;
+  --muted: #b6bad0;
+  --result: #d8d3ff;
+}
+
+body[data-theme="ocean"] {
+  --page: #071b2b;
+  --panel: #103047;
+  --card: #17435d;
+  --border: #285a74;
+  --accent: #39c6e8;
+  --text: #f2fcff;
+  --muted: #b6dce8;
+  --result: #b8f0ff;
+}
+
+body[data-theme="forest"] {
+  --page: #10231c;
+  --panel: #1b382b;
+  --card: #274b39;
+  --border: #3a644d;
+  --accent: #65d99a;
+  --text: #f2fff6;
+  --muted: #b8d9c3;
+  --result: #baffd2;
+}
+
+body[data-theme="sunset"] {
+  --page: #291710;
+  --panel: #47271c;
+  --card: #603627;
+  --border: #824a35;
+  --accent: #ff9b62;
+  --text: #fff7f0;
+  --muted: #e9c2ad;
+  --result: #ffd0ac;
+}
+
+body[data-theme="rose"] {
+  --page: #291522;
+  --panel: #442238;
+  --card: #5a2c49;
+  --border: #79405f;
+  --accent: #ff86ba;
+  --text: #fff5fa;
+  --muted: #e5bfd1;
+  --result: #ffc9e1;
+}
+
+body[data-theme="red"] {
+  --page: #250e13;
+  --panel: #411922;
+  --card: #59232e;
+  --border: #773541;
+  --accent: #ff596b;
+  --text: #fff5f5;
+  --muted: #e8bfc4;
+  --result: #ffc3ca;
+}
+
+body[data-theme="gold"] {
+  --page: #241d0c;
+  --panel: #403319;
+  --card: #594522;
+  --border: #79602d;
+  --accent: #ffd166;
+  --text: #fffaf0;
+  --muted: #e6d6ad;
+  --result: #ffebb0;
+}
+
+body[data-theme="ice"] {
+  --page: #101e2b;
+  --panel: #1c3042;
+  --card: #263f55;
+  --border: #3d5b73;
+  --accent: #8ddcff;
+  --text: #f5fbff;
+  --muted: #c0d8e8;
+  --result: #c8eeff;
+}
+
+body[data-theme="midnight"] {
+  --page: #090909;
+  --panel: #191919;
+  --card: #252525;
+  --border: #414141;
+  --accent: #eeeeee;
+  --text: #ffffff;
+  --muted: #c3c3c3;
+  --result: #eeeeee;
+}
+
+body[data-theme="white"] {
+  --page: #f5f7fb;
+  --panel: #ffffff;
+  --card: #edf0f7;
+  --border: #d8deeb;
+  --accent: #7762d9;
+  --text: #202238;
+  --muted: #626980;
+  --result: #40366f;
+}
+
+body[data-theme="lavender"] {
+  --page: #211b2b;
+  --panel: #332940;
+  --card: #443650;
+  --border: #665477;
+  --accent: #d8b4fe;
+  --text: #fff8ff;
+  --muted: #dfcfe9;
+  --result: #eedcff;
+}
+
+/* Apply selected colors */
+body {
+  background: var(--page);
+  color: var(--text);
+  transition: background .25s ease, color .25s ease;
+}
+
+.calculator {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
+input {
+  background: var(--page);
+  color: var(--text);
+  border-color: var(--border);
+  color-scheme: dark;
+}
+
+button:not(.theme-toggle):not(.theme-option) {
+  background: var(--accent);
+}
+
+button:not(.theme-toggle):not(.theme-option):hover {
+  filter: brightness(1.12);
+}
+
+#result {
+  background: var(--card);
+  color: var(--result);
+}
+
+.eyebrow,
+h1 span {
+  color: var(--accent);
+}
+
+/* Floating theme picker */
+.theme-picker {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+}
+
+.theme-toggle {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  font-size: 26px;
+  border: 2px solid var(--border);
+  box-shadow: 0 8px 24px #0005;
+  cursor: pointer;
+}
+
+.theme-menu {
+  position: absolute;
+  right: 0;
+  bottom: 70px;
+  width: 230px;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 12px 35px #0006;
+}
+
+.theme-menu[hidden] {
+  display: none;
+}
+
+.theme-menu h3 {
+  margin: 4px 4px 12px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  margin: 3px 0;
+  background: transparent !important;
+  color: var(--text);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.theme-option:hover,
+.theme-option.active {
+  background: var(--card) !important;
+  border-color: var(--accent);
+}
+
+.swatch {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.swatch.purple { background: #9b87ff; }
+.swatch.ocean { background: #39c6e8; }
+.swatch.forest { background: #65d99a; }
+.swatch.sunset { background: #ff9b62; }
+.swatch.rose { background: #ff86ba; }
+.swatch.red { background: #ff596b; }
+.swatch.gold { background: #ffd166; }
+.swatch.ice { background: #8ddcff; }
+.swatch.midnight { background: #eeeeee; }
+.swatch.glacier { background: #ffffff; }
+.swatch.lavender { background: #d8b4fe; }
+
+
+/* Previous and next weekday finder */
+.occurrence-card {
+  margin-top: 20px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  text-align: center;
+}
+
+.occurrence-card h2 {
+  margin-top: 0;
+  font-size: 21px;
+  color: var(--accent);
+}
+
+.occurrence-card > p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.occurrence-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.occurrence-item {
+  min-width: 0;
+  padding: 16px 8px;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.occurrence-item span,
+.occurrence-item small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.occurrence-item strong {
+  display: block;
+  margin: 12px 0 8px;
+  color: var(--result);
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 380px) {
+  .occurrence-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.year-match-card {
+  margin-top: 20px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  text-align: center;
+}
+
+.year-match-card h2 {
+  margin-top: 0;
+  font-size: 21px;
+  color: var(--accent);
+}
+
+.year-match-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.year-match-result {
+  margin-top: 18px;
+  padding: 20px 12px;
+  background: var(--card);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+
+#year-match-original,
+#year-match-years {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+#year-match-next {
+  color: var(--result);
+  font-size: 19px;
+}
+
+.year-match-result .arrow {
+  color: var(--accent);
+  font-size: 22px;
+}
+
+
+#share-result {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+#share-result:hover:not(:disabled) {
+  background: var(--accent);
+  color: white;
+}
+
+#share-result:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* ========================================
+   CHRONOWIZARD — PREMIUM DESIGN UPGRADE
+   Preserves existing theme variables
+======================================== */
+
+/* 1. Smoother sizing everywhere */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 2. Subtle magical background glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 50%
+    );
+}
+
+/* 3. Main content */
+.app {
+  width: min(100% - 32px, 600px);
+  margin: 0 auto;
+  padding: 48px 0 100px;
+  animation: cw-enter 700ms ease-out both;
+}
+
+.eyebrow {
+  letter-spacing: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent);
+  animation: cw-enter 700ms 100ms ease-out both;
+}
+
+.app h1 {
+  letter-spacing: -1.8px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.app h1 span {
+  display: inline-block;
+  color: var(--accent);
+  animation: cw-sparkle 3s ease-in-out infinite;
+}
+
+.subtitle {
+  line-height: 1.7;
+}
+
+/* 4. Calculator card */
+.calculator,
+.occurrence-card,
+.year-match-card {
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    transform 250ms ease;
+}
+
+.calculator {
+  padding: clamp(18px, 5vw, 30px);
+  margin-top: 28px;
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--accent) 5%, var(--panel)),
+      var(--panel) 65%
+    );
+}
+
+.calculator:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px
+    color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* 5. Date input */
+input[type="date"] {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  color-scheme: dark;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* 6. Buttons */
+#calculate,
+#share-result {
+  min-height: 50px;
+  border-radius: 14px;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#calculate {
+  box-shadow: 0 5px 18px
+    color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+#calculate:hover,
+#share-result:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px
+    color-mix(in srgb, var(--accent) 23%, transparent);
+}
+
+#calculate:active,
+#share-result:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+#calculate:focus-visible,
+#share-result:focus-visible,
+.theme-toggle:focus-visible,
+.theme-option:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* 7. Result reveal */
+#result {
+  overflow-wrap: anywhere;
+  animation: cw-result-in 400ms ease-out;
+}
+
+#result:not(:empty) {
+  line-height: 1.7;
+}
+
+#share-result {
+  width: 100%;
+}
+
+/* 8. Weekly and future-year cards */
+.occurrence-card,
+.year-match-card {
+  padding: clamp(18px, 5vw, 26px);
+  margin-top: 20px;
+  background: var(--panel);
+  animation: cw-enter 600ms ease-out both;
+}
+
+.occurrence-card {
+  animation-delay: 100ms;
+}
+
+.year-match-card {
+  animation-delay: 180ms;
+}
+
+.occurrence-item {
+  border: 1px solid var(--border);
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease;
+}
+
+.occurrence-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.year-match-result {
+  border: 1px solid var(--border);
+}
+
+/* 9. Theme picker */
+.theme-picker {
+  z-index: 100;
+}
+
+.theme-toggle {
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.2);
+  transition: transform 200ms ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(12deg) scale(1.06);
+}
+
+.theme-menu {
+  max-height: min(70vh, 500px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
+  animation: cw-menu-in 180ms ease-out;
+}
+
+/* 10. Animations */
+@keyframes cw-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cw-result-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cw-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cw-sparkle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.12);
+  }
+}
+
+/* 11. Mobile layout */
+@media (max-width: 600px) {
+  .app {
+    width: calc(100% - 28px);
+    padding-top: 32px;
+    padding-bottom: 110px;
+  }
+
+  .app h1 {
+    font-size: clamp(30px, 8vw, 42px);
+    letter-spacing: -1.2px;
+  }
+
+  .calculator,
+  .occurrence-card,
+  .year-match-card {
+    border-radius: 19px;
+  }
+
+  .occurrence-results {
+    gap: 9px;
+  }
+
+  .occurrence-item {
+    padding: 15px 7px;
+  }
+
+  #calculate,
+  #share-result {
+    min-height: 52px;
+  }
+
+  .theme-menu {
+    width: min(280px, calc(100vw - 28px));
+  }
+}
+
+/* 12. Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* CHRONOWIZARD BRAND IDENTITY */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 850;
+  font-size: 19px;
+  letter-spacing: -0.5px;
+}
+
+.brand-icon {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 16px;
+}
+
+.brand-tag {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.hero {
+  padding: 8px 0 12px;
+  text-align: center;
+}
+
+.hero .eyebrow {
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  margin: 0 auto;
+  max-width: 560px;
+  font-size: clamp(34px, 7vw, 52px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -2px;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.hero .subtitle {
+  max-width: 400px;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.quick-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 26px;
+}
+
+.quick-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.quick-nav a:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#calculator-section,
+#weekly-section,
+#year-match-section {
+  scroll-margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .brand-tag {
+    margin-left: 46px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1.3px;
+  }
+
+  .quick-nav {
+    gap: 7px;
+  }
+
+  .quick-nav a {
+    padding: 9px 11px;
+    font-size: 11px;
+  }
+}
+
+
+/* PROFESSIONAL FOOTER */
+
+.site-footer {
+  margin-top: 44px;
+  padding: 28px 12px 12px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-brand {
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.site-footer p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.creator-credit strong {
+  color: var(--accent);
+}
+
+.back-to-top {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 12px;
+  text-decoration: none;
+  transition: border-color 180ms ease;
+}
+
+.back-to-top:hover {
+  border-color: var(--accent);
+}
+
+
+.swatch.white {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+
+/* Mobile-friendly layout */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 14px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .brand-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .brand-tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  input,
+  select,
+  button,
+  textarea {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-tag {
+    font-size: 9px;
+  }
+}
+
+/* ========================================
+   CHRONOWIZARD MULTI-PAGE HOMEPAGE
+======================================== */
+
+/* Header navigation */
+.site-header {
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.main-nav a {
+  color: var(--text-color, inherit);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+  color: #b99aff;
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+
+/* Homepage hero */
+.home-hero {
+  max-width: 850px;
+  margin: 65px auto 80px;
+  padding: 50px 24px;
+  text-align: center;
+}
+
+.home-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin: 18px 0;
+}
+
+.home-hero .subtitle {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  line-height: 1.8;
+}
+
+.home-cta {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 15px 28px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #9b6bff, #6840c9);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(125, 80, 220, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(125, 80, 220, 0.45);
+}
+
+/* Feature section */
+.tools-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 24px 80px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-heading h2,
+.about-section h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 12px 0;
+}
+
+.section-heading > p:last-child {
+  opacity: 0.8;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 235px;
+  padding: 28px;
+  border: 1px solid rgba(180, 145, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(120, 85, 175, 0.09);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease,
+              background 0.25s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(180, 145, 255, 0.7);
+  background: rgba(120, 85, 175, 0.17);
+}
+
+.tool-icon {
+  font-size: 2.3rem;
+  margin-bottom: 16px;
+}
+
+.tool-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 12px;
+}
+
+.tool-card p {
+  line-height: 1.7;
+  opacity: 0.8;
+  margin: 0 0 22px;
+}
+
+.tool-link {
+  margin-top: auto;
+  color: #b99aff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* About section */
+.about-section {
+  max-width: 750px;
+  margin: 0 auto 80px;
+  padding: 55px 30px;
+  text-align: center;
+  border-top: 1px solid rgba(180, 145, 255, 0.2);
+}
+
+.about-section p:last-child {
+  line-height: 1.9;
+  opacity: 0.85;
+}
+
+/* Mobile layout */
+@media (max-width: 800px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .main-nav {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    justify-content: space-between;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(180, 145, 255, 0.2);
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-nav a {
+    padding: 13px 8px;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card {
+    min-height: 190px;
+  }
+
+  .home-hero {
+    margin: 35px auto 55px;
+    padding: 35px 20px;
+  }
+
+  .tools-section {
+    padding-bottom: 55px;
+  }
+}
+
+
+/* =========================================
+   CHRONOWIZARD — GLOBAL DESIGN FIX
+   Overrides conflicting older CSS rules
+========================================= */
+
+/* Global layout */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: block !important;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background atmosphere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 50%
+    );
+}
+
+/* Header */
+.site-header {
+  position: relative;
+  width: 100%;
+  padding: 18px 24px;
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+/* Logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: -0.6px;
+}
+
+.logo img {
+  display: block;
+  width: 48px !important;
+  height: 48px !important;
+  max-width: 48px !important;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: auto;
+  margin: 0;
+}
+
+.main-nav a {
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 650;
+  transition: 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--accent);
+  background: var(--card);
+}
+
+/* Main page containers */
+.page-container,
+.app {
+  width: min(100% - 40px, 1050px);
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 55px 0 100px;
+  text-align: left;
+}
+
+/* Hero section */
+.hero,
+.home-hero {
+  max-width: 850px;
+  margin: 0 auto 45px;
+  padding: 25px 10px;
+  text-align: center;
+}
+
+.hero h1,
+.home-hero h1 {
+  margin: 12px auto;
+  color: var(--text);
+  font-size: clamp(36px, 6vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.hero .subtitle,
+.home-hero .subtitle {
+  max-width: 700px;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* Eyebrow text */
+.eyebrow {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Calculator cards */
+.calculator-card,
+.calculator,
+.occurrence-card,
+.year-match-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 25px auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--panel);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Card headings */
+.calculator-card h2,
+.calculator h2 {
+  color: var(--text);
+}
+
+/* Form labels */
+label {
+  display: block;
+  margin: 16px 0 9px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* Date input color scheme */
+input[type="date"] {
+  color-scheme: normal;
+}
+
+body:not([data-theme="white"]) input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.calculator-card button,
+.calculator button,
+#calculate,
+#calculate-age,
+#calculate-difference {
+  min-height: 50px;
+  border: none;
+  border-radius: 13px;
+  background: var(--accent);
+  color: var(--page);
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.calculator-card button:hover,
+.calculator button:hover,
+#calculate:hover,
+#calculate-age:hover,
+#calculate-difference:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+}
+
+/* Results */
+#result,
+#age-result,
+#difference-result {
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--result);
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* Homepage cards */
+.tools-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tool-card {
+  min-height: 220px;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--panel);
+  color: var(--text);
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.tool-card h3 {
+  color: var(--text);
+}
+
+.tool-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.tool-icon {
+  font-size: 30px;
+}
+
+/* Footer */
+.site-footer {
+  width: 100%;
+  margin-top: 50px;
+  padding: 30px 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.site-footer p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Floating theme picker */
+.theme-picker {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+}
+
+.theme-toggle {
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  margin: 0;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--page);
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.theme-menu {
+  position: absolute;
+  right: 0;
+  bottom: 70px;
+  width: 230px;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.theme-menu[hidden] {
+  display: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 850px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-nav {
+    justify-content: center;
+  }
+
+  .tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 16px 14px;
+  }
+
+  .header-container {
+    gap: 14px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .logo img {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .main-nav {
+    gap: 5px;
+  }
+
+  .main-nav a {
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  .page-container,
+  .app {
+    width: calc(100% - 28px);
+    padding-top: 35px;
+  }
+
+  .hero h1,
+  .home-hero h1 {
+    font-size: clamp(32px, 9vw, 44px);
+    letter-spacing: -1.2px;
+  }
+
+  .calculator-card,
+  .calculator {
+    padding: 20px;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-picker {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================
+   CALENDAR EXPLORER PAGE
+======================================== */
+
+.calendar-explorer {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.calendar-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.calendar-heading h2 {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-size: clamp(24px, 5vw, 32px);
+}
+
+.calendar-navigation {
+  display: flex;
+  gap: 10px;
+}
+
+.calendar-navigation button {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.calendar-navigation button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.calendar-controls {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.calendar-controls label {
+  display: none;
+}
+
+.calendar-controls input {
+  flex: 1;
+  min-width: 0;
+}
+
+#today-button {
+  width: auto;
+  min-width: 85px;
+  min-height: 50px;
+  margin: 0;
+  padding: 10px 18px;
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#today-button:hover {
+  background: var(--accent);
+  color: var(--page);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weekday {
+  padding: 12px 2px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.calendar-empty {
+  min-height: 65px;
+}
+
+.calendar-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 65px;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.calendar-day:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.calendar-day.today {
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-weight: 850;
+}
+
+.calendar-day.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--page);
+  font-weight: 850;
+}
+
+.selected-date-panel {
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: var(--card);
+  text-align: center;
+}
+
+.selected-date-panel h3 {
+  margin: 10px 0;
+  color: var(--result);
+  font-size: clamp(20px, 4vw, 27px);
+}
+
+.selected-date-panel p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .calendar-explorer {
+    padding: 18px 12px;
+  }
+
+  .calendar-grid {
+    gap: 5px;
+  }
+
+  .calendar-day {
+    min-height: 46px;
+    border-radius: 9px;
+    font-size: 13px;
+  }
+
+  .calendar-empty {
+    min-height: 46px;
+  }
+
+  .weekday {
+    font-size: 10px;
+    padding: 9px 0;
+  }
+
+  .calendar-controls {
+    gap: 8px;
+  }
+
+  #today-button {
+    min-width: 70px;
+    padding: 8px 12px;
+  }
+
+  .selected-date-panel {
+    padding: 18px 12px;
+  }
+}
+
+/* =========================================
+   CHRONOWIZARD — COSMIC TIME FOUNDATION
+   Step 1: Atmosphere, stars, and motion
+========================================= */
+
+body {
+    position: relative;
+    isolation: isolate;
+    background-color: #080B1A;
+    color: #E9ECFF;
+}
+
+/* Cosmic nebula glow */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(139, 108, 255, 0.20),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(98, 200, 255, 0.13),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(23, 19, 59, 0.45),
+            transparent 65%
+        ),
+        #080B1A;
+}
+
+/* Subtle drifting starfield */
+body::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -1;
+    pointer-events: none;
+
+    opacity: 0.45;
+
+    background-image:
+        radial-gradient(2px 2px at 40px 60px, #FFFFFF 50%, transparent 100%),
+        radial-gradient(1px 1px at 120px 180px, #FFFFFF 50%, transparent 100%),
+        radial-gradient(2px 2px at 250px 100px, #8B6CFF 50%, transparent 100%),
+        radial-gradient(1px 1px at 300px 280px, #FFFFFF 50%, transparent 100%),
+        radial-gradient(2px 2px at 420px 220px, #62C8FF 50%, transparent 100%),
+        radial-gradient(1px 1px at 500px 50px, #FFFFFF 50%, transparent 100%);
+
+    background-size: 550px 350px;
+    animation: cw-cosmic-drift 100s linear infinite;
+}
+
+/* Keep page content above the atmosphere */
+.site-header,
+.app,
+.site-footer,
+main,
+footer {
+    position: relative;
+}
+
+/* Cleaner typography */
+.site-header,
+.app,
+main {
+    font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+/* Cosmic heading glow */
+.hero h1,
+.app h1 {
+    color: #E9ECFF;
+    text-shadow:
+        0 0 18px rgba(139, 108, 255, 0.22),
+        0 0 35px rgba(98, 200, 255, 0.10);
+}
+
+/* Soft cosmic card lighting */
+.calculator,
+.occurrence-card,
+.year-match-card {
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.20),
+        0 0 25px rgba(139, 108, 255, 0.07);
+}
+
+/* Gentle hover glow */
+.calculator,
+.occurrence-card,
+.year-match-card,
+.quick-nav a {
+    transition:
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.35s ease;
+}
+
+.calculator:hover,
+.occurrence-card:hover,
+.year-match-card:hover {
+    box-shadow:
+        0 14px 45px rgba(0, 0, 0, 0.28),
+        0 0 30px rgba(139, 108, 255, 0.14);
+}
+
+/* Slow star movement */
+@keyframes cw-cosmic-drift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-100px, 80px, 0);
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    body::after {
+        animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================
+   CHRONOWIZARD — SIGNATURE ORBITAL CLOCK
+   Step 2: Cosmic centerpiece
+========================================= */
+
+.cosmic-clock-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px 65px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.cosmic-clock-label {
+    color: #62C8FF;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    margin-bottom: 5px;
+}
+
+.cosmic-clock {
+    position: relative;
+    width: min(340px, 80vw);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    margin: 10px auto;
+}
+
+/* Orbital rings */
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(139, 108, 255, 0.42);
+    border-radius: 50%;
+    animation: cw-orbit-spin linear infinite;
+}
+
+.orbit-one {
+    width: 68%;
+    height: 68%;
+    border-color: rgba(98, 200, 255, 0.55);
+    animation-duration: 18s;
+}
+
+.orbit-two {
+    width: 86%;
+    height: 86%;
+    border-color: rgba(139, 108, 255, 0.45);
+    animation-duration: 28s;
+    animation-direction: reverse;
+}
+
+.orbit-three {
+    width: 100%;
+    height: 100%;
+    border-color: rgba(231, 199, 120, 0.28);
+    animation-duration: 38s;
+}
+
+/* Orbiting celestial points */
+.orbit-dot {
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #62C8FF;
+    box-shadow:
+        0 0 10px #62C8FF,
+        0 0 22px rgba(98, 200, 255, 0.8);
+}
+
+.orbit-two .orbit-dot {
+    width: 8px;
+    height: 8px;
+    background: #8B6CFF;
+    box-shadow:
+        0 0 10px #8B6CFF,
+        0 0 22px rgba(139, 108, 255, 0.8);
+}
+
+.orbit-three .orbit-dot {
+    width: 7px;
+    height: 7px;
+    background: #E7C778;
+    box-shadow:
+        0 0 10px #E7C778,
+        0 0 20px rgba(231, 199, 120, 0.7);
+}
+
+/* Central time orb */
+.clock-core {
+    position: relative;
+    width: 43%;
+    height: 43%;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(139, 108, 255, 0.95),
+            rgba(39, 29, 91, 0.95) 48%,
+            #080B1A 100%
+        );
+
+    border: 1px solid rgba(178, 157, 255, 0.75);
+
+    box-shadow:
+        0 0 25px rgba(139, 108, 255, 0.5),
+        0 0 65px rgba(98, 200, 255, 0.2),
+        inset 0 0 25px rgba(255, 255, 255, 0.12);
+}
+
+/* Soft pulsing light */
+.core-glow {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    background: rgba(139, 108, 255, 0.12);
+    filter: blur(15px);
+    animation: cw-core-pulse 4s ease-in-out infinite;
+}
+
+.core-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+}
+
+.core-title {
+    color: #FFFFFF;
+    font-size: clamp(0.8rem, 3vw, 1.15rem);
+    font-weight: 900;
+    letter-spacing: 0.14em;
+}
+
+.core-title-bottom {
+    color: #62C8FF;
+}
+
+.core-caption {
+    margin-top: 9px;
+    color: #D8D5FF;
+    font-size: 0.48rem;
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+}
+
+.cosmic-clock-caption {
+    color: #B8C6E8;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}
+
+/* Animations */
+@keyframes cw-orbit-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes cw-core-pulse {
+    0%, 100% {
+        opacity: 0.45;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+/* Mobile sizing */
+@media (max-width: 600px) {
+    .cosmic-clock-section {
+        padding: 30px 15px 45px;
+    }
+
+    .cosmic-clock {
+        width: min(290px, 78vw);
+    }
+
+    .cosmic-clock-caption {
+        font-size: 0.85rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .orbit,
+    .core-glow {
+        animation: none;
+    }
+}
+
+/* =========================================
+   CHRONOWIZARD — COSMIC SVG ICON SYSTEM
+========================================= */
+
+.tool-icon {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(139, 108, 255, 0.18),
+        rgba(98, 200, 255, 0.10)
+    );
+
+    border: 1px solid rgba(139, 108, 255, 0.35);
+    box-shadow: 0 0 22px rgba(139, 108, 255, 0.10);
+
+    transition: 0.3s ease;
+}
+
+.tool-icon svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: #8B6CFF;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter: drop-shadow(0 0 5px rgba(139, 108, 255, 0.55));
+}
+
+.tool-card:hover .tool-icon {
+    transform: translateY(-4px);
+    border-color: #62C8FF;
+    box-shadow: 0 0 25px rgba(98, 200, 255, 0.25);
+}
+
+.tool-card:hover .tool-icon svg {
+    stroke: #62C8FF;
+}
+
+/* Cosmic theme picker SVG */
+.theme-toggle svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* =========================================
+   CHRONOWIZARD — COSMIC NAVIGATION
+========================================= */
+
+.menu-toggle {
+    display: none;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+
+    color: #E9ECFF;
+    background: rgba(139, 108, 255, 0.12);
+    border: 1px solid rgba(139, 108, 255, 0.4);
+    border-radius: 14px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    border-color: #62C8FF;
+    box-shadow: 0 0 20px rgba(98, 200, 255, 0.2);
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon {
+    transform: rotate(90deg);
+}
+
+.menu-line {
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.menu-toggle[aria-expanded="true"] .line-top {
+    transform: translateY(5px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .line-middle {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .line-bottom {
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+/* Mobile navigation */
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    .main-nav.open {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 100;
+
+        padding: 22px;
+        background: rgba(8, 11, 26, 0.97);
+        border: 1px solid rgba(139, 108, 255, 0.3);
+        border-radius: 0 0 18px 18px;
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .main-nav a {
+        color: #E9ECFF;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 10px;
+        transition: all 0.25s ease;
+    }
+
+    .main-nav a:hover {
+        color: #62C8FF;
+        background: rgba(139, 108, 255, 0.12);
+    }
+}
+
+
+/* =========================================
+   COSMIC REFINEMENT — HEADER, HAMBURGER,
+   FLOATING THEME BUTTON
+   (keep this block at the very end of the
+   file so it wins over the older rules above)
+========================================= */
+
+/* Header: dark translucent glass instead of the theme-tinted panel color.
+   z-index keeps the header (and the open mobile menu) above the page content,
+   because backdrop-filter makes the header its own stacking layer. */
+.site-header {
+  z-index: 50;
+  background: rgba(8, 11, 26, 0.72);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(139, 108, 255, 0.28);
+}
+
+/* Hamburger: beat the generic `button:not(...)` accent background */
+.site-header button.menu-toggle {
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  padding: 0;
+  color: #E9ECFF;
+  background: rgba(139, 108, 255, 0.12);
+  border: 1px solid rgba(139, 108, 255, 0.4);
+  border-radius: 14px;
+}
+
+.site-header button.menu-toggle:hover,
+.site-header button.menu-toggle[aria-expanded="true"] {
+  filter: none;
+  background: rgba(98, 200, 255, 0.10);
+  border-color: #62C8FF;
+  box-shadow: 0 0 20px rgba(98, 200, 255, 0.22);
+}
+
+@media (max-width: 900px) {
+  /* Keep logo left and hamburger right on one row */
+  .site-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .site-header button.menu-toggle {
+    margin-left: auto;
+  }
+
+  /* Mobile panel stays near-opaque so page text never shows through
+     (the header's own blur prevents a nested blur from working) */
+  .main-nav.open {
+    background: rgba(8, 11, 26, 0.97);
+    border-color: rgba(139, 108, 255, 0.35);
+  }
+}
+
+/* Floating theme button: dark glass rounded square.
+   Icon and border follow the active theme's accent
+   (violet in the default Purple Dream theme). */
+.theme-picker .theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  color: var(--accent);
+  background: rgba(12, 15, 36, 0.72);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 18px color-mix(in srgb, var(--accent) 20%, transparent);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
+}
+
+.theme-picker .theme-toggle:hover {
+  transform: translateY(-3px);
+  color: #62C8FF;
+  border-color: #62C8FF;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(98, 200, 255, 0.35);
+}
+
+.theme-picker .theme-toggle:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-picker .theme-toggle {
+    transition: none;
+  }
+
+  .theme-picker .theme-toggle:hover,
+  .theme-picker .theme-toggle:active {
+    transform: none;
+  }
+}
+
+
+/* =========================================
+   TEXT ON THE COSMIC BACKGROUND
+   The header, hero and footer sit on the
+   always-dark space background, so their text
+   must not switch to dark in light themes
+   such as Glacier White.
+========================================= */
+.site-header .brand,
+.site-header .brand-name,
+.site-header .logo,
+.site-header .logo span {
+  color: #E9ECFF;
+}
+
+.main-nav a {
+  color: rgba(233, 236, 255, 0.78);
+}
+
+@media (max-width: 900px) {
+  .main-nav a {
+    color: #E9ECFF;
+  }
+}
+
+.hero .subtitle,
+.home-hero .subtitle,
+.section-heading p,
+.about-section p,
+.site-footer p {
+  color: rgba(233, 236, 255, 0.72);
+}
+
+
+/* =========================================
+   DAY CALCULATOR PAGE  (body.page-day)
+   Cards, icons, result and timeline.
+   Colors flow from the theme variables so all
+   11 themes keep working.
+========================================= */
+
+/* Glass cards */
+body.page-day .calculator,
+body.page-day .occurrence-card,
+body.page-day .year-match-card {
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 24px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 0 40px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+body.page-day .calculator {
+  text-align: left;
+}
+
+/* Card heading with glowing icon badge */
+.cw-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.cw-card-head h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: var(--text);
+}
+
+.cw-card-head p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.cw-badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 24%, transparent),
+    rgba(98, 200, 255, 0.10)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.cw-badge svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+/* Section titles with small icons */
+.cw-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cw-section-title svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Reveal button */
+body.page-day #calculate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 70%, #62C8FF)
+  );
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+body.page-day #calculate svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Share button icon (CSS, so it survives the script changing the label text) */
+body.page-day #share-result {
+  border-radius: 14px;
+}
+
+body.page-day #share-result::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: -3px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Result */
+body.page-day #result {
+  margin-top: 16px;
+  padding: 24px 18px;
+  text-align: center;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 18px;
+}
+
+.result-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.result-weekday {
+  margin: 8px 0 4px;
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  background: linear-gradient(90deg, var(--accent), #62C8FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.result-date {
+  font-size: 15px;
+  color: var(--result);
+}
+
+.result-skipped {
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--result);
+}
+
+.result-note {
+  margin-top: 18px;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #E7C778;
+  background: rgba(231, 199, 120, 0.09);
+  border: 1px solid rgba(231, 199, 120, 0.28);
+  border-radius: 12px;
+}
+
+.result-note strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Previous / next weekday cards */
+body.page-day .occurrence-item {
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+body.page-day .occurrence-item span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+body.page-day .occurrence-item svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Same date, same weekday: vertical timeline */
+body.page-day .year-match-result.cw-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.cw-node {
+  padding: 14px 12px;
+  text-align: center;
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 16px;
+}
+
+.cw-node-current {
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.cw-node-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cw-node-label svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+body.page-day .cw-node strong,
+body.page-day #year-match-original,
+body.page-day #year-match-next {
+  display: block;
+  margin: 8px 0 4px;
+  font-size: 18px;
+  font-weight: 750;
+  color: var(--result);
+}
+
+body.page-day .cw-node small,
+body.page-day #year-match-years {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cw-connector {
+  display: block;
+  width: 2px;
+  height: 22px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent) 70%, transparent),
+    rgba(98, 200, 255, 0.7)
+  );
+}
+
+
+/* Inner-page header on phones and tablets: logo left, hamburger right,
+   on one row (the older 850px rule stacked them in a column). */
+@media (max-width: 900px) {
+  .site-header .header-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+}
