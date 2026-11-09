@@ -2878,3 +2878,49 @@ body.page-day #year-match-years {
   }
 }
 
+/* ========================================
+   WHITE THEME — HEADER COLORS
+   Only applies when the White theme is active
+======================================== */
+
+/* Give the header a light background */
+body[data-theme="white"] .site-header {
+  background: rgba(255, 255, 255, 0.95); /* White with slight transparency */
+  border-bottom: 1px solid #d8deeb; /* Soft gray divider */
+}
+
+/* Make the brand name and navigation text dark */
+body[data-theme="white"] .site-header .brand,
+body[data-theme="white"] .site-header .brand-name,
+body[data-theme="white"] .site-header .logo,
+body[data-theme="white"] .site-header .logo span,
+body[data-theme="white"] .site-header .brand-tag,
+body[data-theme="white"] .site-header .main-nav a {
+  color: #202238; /* Dark navy text for better readability */
+}
+
+/* Give navigation links a violet hover effect */
+body[data-theme="white"] .site-header .main-nav a:hover,
+body[data-theme="white"] .site-header .main-nav a.active {
+  color: #6550c8; /* Violet text */
+  background: #edf0f7; /* Light gray-violet background */
+}
+
+/* Style the hamburger menu button */
+body[data-theme="white"] .site-header button.menu-toggle {
+  color: #6550c8; /* Violet hamburger icon */
+  background: rgba(101, 80, 200, 0.10); /* Subtle violet background */
+  border-color: rgba(101, 80, 200, 0.35); /* Violet outline */
+}
+
+/* Make the mobile dropdown match the White theme */
+@media (max-width: 900px) {
+  body[data-theme="white"] .main-nav.open {
+    background: rgba(255, 255, 255, 0.98); /* Light dropdown panel */
+    border-color: #d8deeb; /* Light border */
+  }
+
+  body[data-theme="white"] .main-nav.open a {
+    color: #202238; /* Dark mobile navigation text */
+  }
+}
