@@ -201,9 +201,10 @@ body[data-theme="white"] {
   --panel: #ffffff;
   --card: #edf0f7;
   --border: #d8deeb;
-  --accent: #7762d9;
+
+  --accent: #6550c8;
   --text: #202238;
-  --muted: #626980;
+  --muted: #52617a;
   --result: #40366f;
 }
 
