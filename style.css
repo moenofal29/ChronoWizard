@@ -2878,3 +2878,34 @@ body.page-day #year-match-years {
     flex-wrap: nowrap;
   }
 }
+
+/* =========================================
+   WHITE THEME — HEADER TEXT CONTRAST
+========================================= */
+
+body[data-theme="white"] .site-header .brand,
+body[data-theme="white"] .site-header .brand-name,
+body[data-theme="white"] .site-header .logo,
+body[data-theme="white"] .site-header .logo span {
+  color: #202238;
+}
+
+body[data-theme="white"] .site-header .brand-tag {
+  color: #52617A;
+}
+
+body[data-theme="white"] .site-header .main-nav a {
+  color: #40445C;
+}
+
+body[data-theme="white"] .site-header .main-nav a:hover,
+body[data-theme="white"] .site-header .main-nav a.active {
+  color: #6550C8;
+  background: #edf0f7;
+}
+
+body[data-theme="white"] .site-header button.menu-toggle {
+  color: #6550C8;
+  background: rgba(101, 80, 200, 0.10);
+  border-color: rgba(101, 80, 200, 0.35);
+}
