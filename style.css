@@ -197,14 +197,13 @@ body[data-theme="midnight"] {
 }
 
 body[data-theme="white"] {
-  --page: #202238;
-  --panel: #202238;
-  --card: #202238;
-  --border: #202238;
-
-  --accent: #6550c8;
+  --page: #f5f7fb;
+  --panel: #ffffff;
+  --card: #edf0f7;
+  --border: #d8deeb;
+  --accent: #7762d9;
   --text: #202238;
-  --muted: #52617a;
+  --muted: #626980;
   --result: #40366f;
 }
 
